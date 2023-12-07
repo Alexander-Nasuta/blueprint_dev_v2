@@ -1,0 +1,29 @@
+# ATTENTION: Parts of this file are managed automatically!
+# This refers to build-system, project.version, tool and nuitka.
+
+
+[build-system]
+requires = [
+    "setuptools",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "blueprint_dev_v2"
+version = "0.0.0"           # will be changed automatically
+authors = [{name = "qwerty" },]
+description = ""
+readme = "README.md"
+requires-python = "~=3.11"
+dependencies = ["fastiot>=1.0,<2"]
+
+# will be changed automatically
+[project.optional-dependencies]
+all = []
+
+# will be changed automatically
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["blueprint_dev_v2"]
+exclude = ["blueprint_dev_v2_tests", "blueprint_dev_v2_services"]
