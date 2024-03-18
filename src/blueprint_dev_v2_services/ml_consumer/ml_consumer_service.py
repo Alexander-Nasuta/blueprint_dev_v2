@@ -7,39 +7,37 @@ In order for your code to work, you must delete the code that you are not using 
 
 import asyncio
 import logging
+import pprint
 import random
 
 from fastiot.core import FastIoTService, Subject, subscribe, loop
-from fastiot.core.core_uuid import get_uuid
-from fastiot.core.time import get_time_now
-from fastiot.msg.thing import Thing
+from datetime import datetime
+
+from blueprint_dev_v2.ml_lifecycle_utils.ml_lifecycle_broker_facade import request_get_prediction
 
 
 class MlConsumerService(FastIoTService):
 
-    @loop
-    async def produce(self):
-        """ Creating some dummy data and publish it """
-        sensor_name = f'my_sensor_{random.randint(1, 5)}'
-        value = random.randint(20, 30)
-        subject = Thing.get_subject(sensor_name)
-        await self.broker_connection.publish(
-            subject=subject,
-            msg=Thing(
-                name=sensor_name,
-                machine='FastIoT_Example_Machine',
-                measurement_id=get_uuid(),
-                value=value,
-                timestamp=get_time_now()
-            )
-        )
-        self._logger.info("Published %d on sensor %s", value, subject.name)
-        return asyncio.sleep(2)
+    @staticmethod
+    def _get_random_raw_datapoint() -> dict:
+        return {
+            'laborant': ["TK", "HANS", "AN", "SO"][random.randint(0, 3)],
+            'material_id': ["00000000", "11111111", "22222222", "33333333"][random.randint(0, 3)],
+            'datum':  datetime.now().strftime("%d.%m.%Y, %H:%M:%S"),
+            'rohwert_1_labormessung': random.uniform(0, 30),
+            'rohwert_2_labormessung': random.uniform(0, 30),
+            'rohwert_3_labormessung': random.uniform(0, 2),
+            'aufbereiteter_wert''':  0.1,
+        }
 
-    @subscribe(subject=Thing.get_subject('*'))
-    async def consume(self, topic: str, msg: Thing):
-        """ Subscribing to `Thing.*` messages """
-        self._logger.info("%s: %s", topic, str(msg))
+    @loop
+    async def request_prediction(self):
+        self._logger.info("Requesting prediction")
+        raw_unlabeled_datapoints = [self._get_random_raw_datapoint() for _ in range(2)]
+        self._logger.info(f"Requesting predictions for: \n{pprint.pformat(raw_unlabeled_datapoints)}")
+        predictions = await request_get_prediction(fiot_service=self, data=raw_unlabeled_datapoints)
+        self._logger.info(f"Received predictions: \n{pprint.pformat(predictions)}")
+        return asyncio.sleep(5)
 
 
 if __name__ == '__main__':

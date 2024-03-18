@@ -16,7 +16,7 @@ from fastiot.core.time import get_time_now
 from fastiot.msg.thing import Thing
 
 from blueprint_dev_v2.ml_lifecycle_utils.ml_lifecycle_broker_facade import request_save_many_raw_data_points
-from blueprint_dev_v2.ml_lifecycle_utils.ml_lifecycle_subjects_name import SAVE_MANY_RAW_DATA_SUBJECT_NAME
+from blueprint_dev_v2.ml_lifecycle_utils.ml_lifecycle_subjects_name import _SAVE_MANY_RAW_DATA_SUBJECT_NAME
 from src.blueprint_dev_v2.logger.logger import log
 
 from datetime import datetime
@@ -26,17 +26,17 @@ class DummyDataGenerationService(FastIoTService):
 
     async def _start(self):
         log.info("DummyDataGenerationServiceService started")
-        await self.generate_dummy_data(num_data_points=10)
+        await self.generate_dummy_data(num_data_points=1_000)
 
     async def generate_dummy_data(self, num_data_points=10):
         log.info(f"generating {num_data_points} dummy data entries. "
                  f"some entries will be intentionally invalid/missing values.")
 
         material_ids = [
-            "00000000-0000-0000-0000-000000000000",
-            "11111111-1111-1111-1111-111111111111",
-            "22222222-2222-2222-2222-222222222222",
-            "33333333-3333-3333-3333-333333333333",
+            "00000000",
+            "11111111",
+            "22222222",
+            "33333333",
         ]
 
         laboratory_technicians = ["TK", "AN", "SO", "HANS", None]

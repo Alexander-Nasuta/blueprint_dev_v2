@@ -80,10 +80,13 @@ class Discretisation(BaseEstimator, TransformerMixin):
 
 
 class OneHotEncodePd(BaseEstimator, TransformerMixin):
-    def __init__(self, target: str, prefix: str, sep: str):
+    def __init__(self, target: str, prefix: str, sep: str, required_columns=None):
+        if required_columns is None:
+            required_columns = []
         self.target = target
         self.prefix = prefix
         self.sep = sep
+        self.required_columns = required_columns
 
     def fit(self, target):
         return self
@@ -98,6 +101,11 @@ class OneHotEncodePd(BaseEstimator, TransformerMixin):
 
         # Drop the original 'Category' column
         x.drop(columns=[self.target], inplace=True)
+
+        # Ensure all required columns are present, adding them with 0s if necessary
+        for column in self.required_columns:
+            if column not in x.columns:
+                x[column] = 0.0
 
         return x
 
