@@ -16,3 +16,11 @@ src/fastiot/__version__.py
 /src/fastiot_sample_services/fastapi/static/
 fastiot.egg-info/
 generated/
+wandb
+wandb/
+artifacts
+mlruns
+mlruns/
+mlartifacts
+mlartifacts/
+

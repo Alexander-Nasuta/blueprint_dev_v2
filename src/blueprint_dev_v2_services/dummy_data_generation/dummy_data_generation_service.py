@@ -1,23 +1,10 @@
-"""
-This file has just been created automatically.
-This is the file where you can write you own service.
-Currently, the is code provides a basic producer and an basic consumer.
-In order for your code to work, you must delete the code that you are not using and add your own application logic.
-"""
-
-import asyncio
 import logging
 import random
 import math
 
-from fastiot.core import FastIoTService, Subject, subscribe, loop, ReplySubject
-from fastiot.core.core_uuid import get_uuid
-from fastiot.core.time import get_time_now
-from fastiot.msg.thing import Thing
+from fastiot.core import FastIoTService
 
 from blueprint_dev_v2.ml_lifecycle_utils.ml_lifecycle_broker_facade import request_save_many_raw_data_points
-from blueprint_dev_v2.ml_lifecycle_utils.ml_lifecycle_subjects_name import _SAVE_MANY_RAW_DATA_SUBJECT_NAME
-from src.blueprint_dev_v2.logger.logger import log
 
 from datetime import datetime
 
@@ -25,11 +12,11 @@ from datetime import datetime
 class DummyDataGenerationService(FastIoTService):
 
     async def _start(self):
-        log.info("DummyDataGenerationServiceService started")
-        await self.generate_dummy_data(num_data_points=1_000)
+        self._logger.info("DummyDataGenerationServiceService started")
+        await self.generate_dummy_data(num_data_points=100)
 
     async def generate_dummy_data(self, num_data_points=10):
-        log.info(f"generating {num_data_points} dummy data entries. "
+        self._logger.info(f"generating {num_data_points} dummy data entries. "
                  f"some entries will be intentionally invalid/missing values.")
 
         material_ids = [
@@ -70,7 +57,7 @@ class DummyDataGenerationService(FastIoTService):
                 i["rohwert_3_labormessung"] = None
 
         db_service_response: dict = await request_save_many_raw_data_points(fiot_service=self, data=data_points)
-        log.info(f"received response from db-service: {db_service_response}")
+        self._logger.info(f"received response from db-service: {db_service_response}")
 
 
 if __name__ == '__main__':

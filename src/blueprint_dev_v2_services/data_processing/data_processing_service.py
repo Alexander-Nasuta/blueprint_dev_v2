@@ -17,8 +17,18 @@ from fastiot.core.time import get_time_now
 from fastiot.msg.thing import Thing
 from sklearn.pipeline import Pipeline
 
-from blueprint_dev_v2.data_processing_utils.data_tranformers import ColumnDropper, DropIncompleteRow, FillNaNWithMean, \
-    FillNaNWithMedian, FillNaNWithValue, Discretisation, OneHotEncodePd, NormalizeCols
+from blueprint_dev_v2.data_processing_utils.feature_engineering import (
+    Discretisation,
+    OneHotEncodePd,
+    NormalizeCols
+)
+from blueprint_dev_v2.data_processing_utils.data_cleaning import (
+    ColumnDropper,
+    DropIncompleteRow,
+    FillNaNWithMean,
+    FillNaNWithMedian,
+    FillNaNWithValue
+)
 from blueprint_dev_v2.ml_lifecycle_utils.ml_lifecycle_broker_facade import request_get_all_raw_data_points, \
     request_upsert_many_processed_data_points, ok_response_thing, error_response_thing
 from blueprint_dev_v2.ml_lifecycle_utils.ml_lifecycle_subjects_name import DATA_PROCESSING_PROCESS_RAW_DATA_SUBJECT
@@ -68,7 +78,7 @@ class DataProcessingService(FastIoTService):
         # NOTE: sklearn transformers are not designed to work with pandas dataframes, but with numpy arrays
         #       we rewrote the transformers to work with pandas dataframes
         #       if you want to use a transformer that is not implemented yet, you can write your own transformer
-        #       look into the data_tranformers.py file to see how to write your own transformer
+        #       look into the feature_engineering.py file to see how to write your own transformer
 
         steps = []
 

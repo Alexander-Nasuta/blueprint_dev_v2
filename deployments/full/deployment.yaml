@@ -23,6 +23,8 @@ services:
   ml_consumer: null
   ml_monitoring: null
   ml_pytorch_regression: null
+  ml_pytorch_regression_mlflow: null
   ml_serving: null
+  ml_serving_mlflow: null
 tag: ''
 version: 1

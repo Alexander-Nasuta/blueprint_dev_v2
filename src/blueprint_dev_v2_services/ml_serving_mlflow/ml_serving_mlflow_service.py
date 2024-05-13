@@ -1,4 +1,6 @@
 import logging
+import mlflow
+import mlflow.pytorch
 from asyncio import Future
 
 from fastiot.core import FastIoTService, reply
@@ -11,11 +13,10 @@ import pandas as pd
 from blueprint_dev_v2.ml_lifecycle_utils.ml_lifecycle_broker_facade import \
     request_get_processed_data_points_from_raw_data, ok_response_thing, error_response_thing
 from blueprint_dev_v2.ml_lifecycle_utils.ml_lifecycle_subjects_name import ML_SERVING_SUBJECT
-from blueprint_dev_v2_services.ml_pytorch_regression.ml_pytorch_regression_service import DemonstratorNeuralNet
 from src.blueprint_dev_v2.logger.logger import log
 
 
-class MlServingService(FastIoTService):
+class MlServingMlflowService(FastIoTService):
     """
     This service is responsible for serving predictions using a PyTorch model.
 
@@ -34,8 +35,8 @@ class MlServingService(FastIoTService):
         Start the service.
     _setup_model()
         Initialize the regression model.
-    _load_model_weights_wandb()
-        Load the model weights from wandb.
+    _load_model_weights_mlfow()
+        Load the model weights from mlflow.
     _process_raw_data_points(data: list[dict]) -> Future[list[dict]]
         Process raw data points.
     _get_prediction(raw_datapoints: list[dict]) -> Future[list[list[float]]]
@@ -43,6 +44,10 @@ class MlServingService(FastIoTService):
     prediction(topic: str, msg: Thing) -> Thing
         Serve predictions for raw data points.
     """
+
+    MODEL_URI = "models:/MyModel/7"
+    MLFLOW_TRACKING_URI = "http://127.0.0.1:8080"
+
     _regression_model = None
 
     _example_raw_payload = {
@@ -60,6 +65,7 @@ class MlServingService(FastIoTService):
         Runs when the service starts.
         """
         log.info("MlPytorchRegressionService started")
+        mlflow.set_tracking_uri(self.MLFLOW_TRACKING_URI)
         await self._setup_model()
 
     async def _setup_model(self):
@@ -72,14 +78,8 @@ class MlServingService(FastIoTService):
         """
         log.info("Setting up Demonstrator Regression model")
 
-        self._regression_model = DemonstratorNeuralNet(
-            input_dim=15,
-            hidden_dim=10,
-            output_dim=1
-        )
-
         # Load model weights
-        await self._load_model_weights_wandb()
+        await self._load_model_weights_mlfow()
 
         # test model with example payload
         _ = await self._get_prediction(
@@ -90,41 +90,18 @@ class MlServingService(FastIoTService):
             ]
         )
 
-    async def _load_model_weights_wandb(self):
+    async def _load_model_weights_mlfow(self):
         """
-        Load the model weights from wandb.
+        Load the model weights from mlflow.
 
         Returns
         -------
         None
         """
-        log.info("Loading model weights from wandb")
-
-        import wandb
-
-        # Create a new API object
-        api = wandb.Api()
-
-        # Get all the artifacts of a specific project
-        wandb_config = {
-            "entity": "querry",  # Replace with your username
-            "project": "KIOptipack-dev",  # Replace with your project name
-            "name": "model_4c7eb0ae-2dc6-49f5-a179-605a89",  # Replace with your artifact name
-            "version": "v6",
-            "group": "MVDP-pytorch-regression",
-            "model_type": "pytorch-regression-model",
-        }
-        artifact = api.artifact("querry/KIOptipack-dev/DemonstratorNeuralNet:latest")
-        log.info(f"Downloading model weights for model '{artifact.metadata['model_name']}'")
-        artifact.download()
-
-        model_name = artifact.metadata["model_name"]
-        model_version = artifact.version
-        path = f"./artifacts/DemonstratorNeuralNet:{model_version}/{model_name}"
-        if self._regression_model is None:
-            raise ValueError("Regression model not initialized. Please call _setup_model() first.")
-        self._regression_model.load_state_dict(
-            torch.load(f"./artifacts/DemonstratorNeuralNet:{model_version}/{model_name}"))
+        log.info("Loading model weights from mlfow")
+        model = mlflow.pytorch.load_model(model_uri=self.MODEL_URI)
+        log.info(f"Model loaded from mlflow: \n{model}")
+        self._regression_model = model
 
     async def _process_raw_data_points(self, data: list[dict]) -> Future[list[dict]]:
         """
@@ -133,14 +110,14 @@ class MlServingService(FastIoTService):
         Parameters
         ----------
         data
-            Raw data points.
+            Raw data points to be processed.
 
         Returns
         -------
         Future[list[dict]]
             Processed data points.
         """
-        log.info(f"Processing raw data points, received")
+        log.info(f"Processing raw data points")
         return await request_get_processed_data_points_from_raw_data(
             fiot_service=self,
             data=data,
@@ -153,7 +130,7 @@ class MlServingService(FastIoTService):
         Parameters
         ----------
         raw_datapoints
-            Raw data points.
+            Raw data points to get predictions for.
 
         Returns
         -------
@@ -172,7 +149,7 @@ class MlServingService(FastIoTService):
         return prediction.tolist()
 
     @reply(ML_SERVING_SUBJECT)
-    async def prediction(self,  _: str, msg: Thing) -> Thing:
+    async def prediction(self, _: str, msg: Thing) -> Thing:
         """
         Serve predictions for raw data points.
 
@@ -181,13 +158,11 @@ class MlServingService(FastIoTService):
         _
         msg
             The message containing the raw data points.
-        msg
-            The message containing the raw data points.
 
         Returns
         -------
         Thing
-            The response message.
+            The response message containing the predictions.
         """
         if not isinstance(msg.value, list):
             log.error(f"Payload (the 'value' field of the msg Thing) must be of type list, "
@@ -197,7 +172,7 @@ class MlServingService(FastIoTService):
         raw_data_points: list[dict] = msg.value
 
         try:
-            res:list[list[float]] = await self._get_prediction(raw_datapoints=raw_data_points)
+            res: list[list[float]] = await self._get_prediction(raw_datapoints=raw_data_points)
 
             return ok_response_thing(payload=res, fiot_service=self)
 
@@ -208,4 +183,4 @@ class MlServingService(FastIoTService):
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
-    MlServingService.main()
+    MlServingMlflowService.main()

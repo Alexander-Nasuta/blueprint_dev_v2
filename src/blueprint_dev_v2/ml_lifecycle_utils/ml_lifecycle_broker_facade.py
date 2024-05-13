@@ -1,4 +1,3 @@
-import asyncio
 from asyncio import Future
 
 from fastiot.core import FastIoTService, ReplySubject

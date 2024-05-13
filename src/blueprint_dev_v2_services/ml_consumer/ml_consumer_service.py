@@ -1,16 +1,10 @@
-"""
-This file has just been created automatically.
-This is the file where you can write you own service.
-Currently, the is code provides a basic producer and an basic consumer.
-In order for your code to work, you must delete the code that you are not using and add your own application logic.
-"""
 
 import asyncio
 import logging
 import pprint
 import random
 
-from fastiot.core import FastIoTService, Subject, subscribe, loop
+from fastiot.core import FastIoTService, loop
 from datetime import datetime
 
 from blueprint_dev_v2.ml_lifecycle_utils.ml_lifecycle_broker_facade import request_get_prediction

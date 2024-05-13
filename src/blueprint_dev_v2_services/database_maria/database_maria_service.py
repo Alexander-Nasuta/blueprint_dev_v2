@@ -1,40 +1,66 @@
-"""
-This file has just been created automatically.
-This is the file where you can write you own service.
-Currently, the is code provides a basic producer and an basic consumer.
-In order for your code to work, you must delete the code that you are not using and add your own application logic.
-"""
-
-import asyncio
 import logging
-import pprint
-import random
 import uuid
 
-from sqlalchemy import create_engine, Table, Column, Integer, MetaData, String
-from sqlalchemy.orm import declarative_base, sessionmaker
-
 from blueprint_dev_v2.ml_lifecycle_utils.ml_lifecycle_broker_facade import ok_response_thing, error_response_thing
-from blueprint_dev_v2.ml_lifecycle_utils.ml_lifecycle_subjects_name import _SAVE_MANY_RAW_DATA_SUBJECT_NAME, \
-    DB_SAVE_MANY_RAW_DATAPOINTS_SUBJECT, DB_GET_ALL_RAW_DATA_SUBJECT, DB_UPSERT_MANY_PROCESSED_DATAPOINTS_SUBJECT, \
+from blueprint_dev_v2.ml_lifecycle_utils.ml_lifecycle_subjects_name import (
+    DB_SAVE_MANY_RAW_DATAPOINTS_SUBJECT,
+    DB_GET_ALL_RAW_DATA_SUBJECT,
+    DB_UPSERT_MANY_PROCESSED_DATAPOINTS_SUBJECT,
     DB_GET_PROCESSED_DATA_COUNT_SUBJECT, DB_GET_PROCESSED_DATA_PAGE_SUBJECT
-from src.blueprint_dev_v2.logger.logger import log
-from datetime import datetime
+)
 
-from fastiot.core import FastIoTService, Subject, subscribe, loop, reply, ReplySubject
-from fastiot.core.core_uuid import get_uuid
-from fastiot.core.time import get_time_now
+from fastiot.core import FastIoTService, reply
 from fastiot.db.mariadb_helper_fn import get_mariadb_client_from_env
 from fastiot.msg.thing import Thing
 
-Base = declarative_base()
-
-
 class DatabaseMariaService(FastIoTService):
+    """
+    This service is responsible for handling the database operations for the MariaDB database.
+
+    The service listens to the following subjects:
+    - `DB_SAVE_MANY_RAW_DATAPOINTS_SUBJECT`: to save many raw data points
+    - `DB_GET_ALL_RAW_DATA_SUBJECT`: to get all raw data
+    - `DB_UPSERT_MANY_PROCESSED_DATAPOINTS_SUBJECT`: to save or update many processed data points
+    - `DB_GET_PROCESSED_DATA_COUNT_SUBJECT`: to get the number of processed data points
+    - `DB_GET_PROCESSED_DATA_PAGE_SUBJECT`: to get a page of processed data points
+
+    The service uses the `mariadb_helper_fn.get_mariadb_client_from_env` function to get a MariaDB connection.
+
+    Attributes
+    ----------
+    _DB_NAME : str
+        The name of the database. This is used for logging purposes.
+    _mariadb_connection : mariadb.connection
+        The connection to the MariaDB database.
+
+    Methods
+    -------
+    _stop()
+        Stops the service.
+    setup_schemas_if_not_exists()
+        Creates the database schema and tables if they do not exist.
+    _start()
+        Starts the service.
+    db_save_many_raw_datapoints(topic: str, msg: Thing) -> Thing
+        Saves many raw data points to the database.
+    get_all_raw_data(topic: str, msg: Thing) -> Thing
+        Gets all raw data from the database.
+    db_save_upsert_processed_datapoints(topic: str, msg: Thing) -> Thing
+        Saves or updates many processed data points in the database.
+    get_processed_data_count(topic: str, msg: Thing) -> Thing
+        Gets the number of processed data points from the database.
+    get_processed_data_page(topic: str, msg: Thing) -> Thing
+        Gets a page of processed data points from the database.
+    """
 
     _DB_NAME = "MariaDB"
-
     def __init__(self, **kwargs):
+        """
+        Parameters
+        ----------
+        kwargs
+            Additional keyword arguments to pass to the FastIoTService constructor.
+        """
         super().__init__(**kwargs)
         # NOTE: create the database/schema and table in the mariadb database before running this service
         #       you can use the following SQL statement to create the database and table:
@@ -45,16 +71,26 @@ class DatabaseMariaService(FastIoTService):
         self._mariadb_connection = get_mariadb_client_from_env(schema="TestDB")
 
     async def _stop(self):
-        log.info(f"{self._DB_NAME}-Service stopped")
+        """
+        Stops the service.
+        """
+        self._logger.info(f"{self._DB_NAME}-Service stopped")
         self._mariadb_connection.close()
 
     def setup_schemas_if_not_exists(self):
+        """
+        Creates the database schema and tables if they do not exist.
+
+        Returns
+        -------
+        None
+        """
         # create table if not exists. table-name: KIOptiPackRaw
         cursor = self._mariadb_connection.cursor()
         try:
             # create table if not exists. table-name: KIOptiPackRaw
             # NOTE: replace the table name with your own table name
-            res = cursor.execute("CREATE TABLE IF NOT EXISTS KIOptiPackRaw("
+            _ = cursor.execute("CREATE TABLE IF NOT EXISTS KIOptiPackRaw("
                                               "id UUID PRIMARY KEY,"
                                               "material_id VARCHAR(36),"
                                               "datum VARCHAR(36),"
@@ -64,10 +100,10 @@ class DatabaseMariaService(FastIoTService):
                                               "rohwert_3_labormessung FLOAT(12),"
                                               "aufbereiteter_wert FLOAT(12));"
                                               )
-            log.info(f"{self._DB_NAME}-Table 'KIOptiPackRaw' created successfully")
+            self._logger.info(f"{self._DB_NAME}-Table 'KIOptiPackRaw' created successfully")
 
 
-            res = cursor.execute("CREATE TABLE IF NOT EXISTS KIOptiPackProcessed("
+            _ = cursor.execute("CREATE TABLE IF NOT EXISTS KIOptiPackProcessed("
                                     "id UUID PRIMARY KEY,"
                                     "aufbereiteter_wert FLOAT(12),"
                                     "laborant_AN FLOAT(12),"
@@ -89,35 +125,54 @@ class DatabaseMariaService(FastIoTService):
 
             # material_id_00000000
             # material_id_00000000-0000-0000-0000-000000000000
-            log.info(f"{self._DB_NAME}-Table 'KIOptiPackProcessed' created successfully")
+            self._logger.info(f"{self._DB_NAME}-Table 'KIOptiPackProcessed' created successfully")
         except Exception as e:
-            log.error(f"Error while creating {self._DB_NAME}-Table: {e}")
+            self._logger.error(f"Error while creating {self._DB_NAME}-Table: {e}")
             raise e
         finally:
             cursor.close()
 
     async def _start(self):
-        log.info("{self._DB_NAME}-Service started")
+        """
+        Starts the service.
+        """
+        self._logger.info(f"{self._DB_NAME}-Service started")
         self.setup_schemas_if_not_exists()
 
     @reply(DB_SAVE_MANY_RAW_DATAPOINTS_SUBJECT)
-    async def db_save_many_raw_datapoints(self, topic: str, msg: Thing) -> Thing:
+    async def db_save_many_raw_datapoints(self, _: str, msg: Thing) -> Thing:
+        """
+        Saves many raw data points to the database.
+
+        Parameters
+        ----------
+        _
+            The topic of the message. This is not used in the method, but is required by the `@reply` decorator.
+        msg
+            The message containing the raw data points to save.
+
+        Returns
+        -------
+        Thing
+            A Thing containing the result of the operation. If the operation was successful, the Thing will contain
+            the number of rows inserted into the database. If the operation was not successful, the Thing will contain
+            an error message.
+        """
         if not isinstance(msg.value, list):
-            log.error(f"Payload (the 'value' field of the msg Thing) must be of type list, "
+            self._logger.error(f"Payload (the 'value' field of the msg Thing) must be of type list, "
                       f"but received: {type(msg.value)}")
             raise ValueError("Payload must be a list of raw data points")
 
         data_points: list[dict] = msg.value
-        log.info(f"Received {len(data_points)} raw data points to be inserted into {self._DB_NAME}")
+        self._logger.info(f"Received {len(data_points)} raw data points to be inserted into {self._DB_NAME}")
 
         # create uuids for each data point
         for data_point in data_points:
             data_point["id"] = str(uuid.uuid4())
 
-        log.info(f"Insering data points into {self._DB_NAME}")
+        self._logger.info(f"Insering data points into {self._DB_NAME}")
 
         cursor = self._mariadb_connection.cursor()
-        res = None
 
         try:
             no_rows = cursor.executemany(
@@ -128,8 +183,8 @@ class DatabaseMariaService(FastIoTService):
                 data_points
             )
             self._mariadb_connection.commit()
-            log.info(f"DB transaction result: {no_rows}")
-            log.info(f"Inserted {no_rows} data points into {self._DB_NAME}")
+            self._logger.info(f"DB transaction result: {no_rows}")
+            self._logger.info(f"Inserted {no_rows} data points into {self._DB_NAME}")
 
             # feel free to include whatever information you want to return here.
             res = {
@@ -142,14 +197,30 @@ class DatabaseMariaService(FastIoTService):
             # However, some infos are return here, so that the requesting service can log the information.
             return ok_response_thing(payload=res, fiot_service=self)
         except Exception as e:
-            log.error(f"Error while inserting data points into {self._DB_NAME}: {e}")
+            self._logger.error(f"Error while inserting data points into {self._DB_NAME}: {e}")
             return error_response_thing(exception=e, fiot_service=self)
         finally:
             cursor.close()
 
     @reply(DB_GET_ALL_RAW_DATA_SUBJECT)
-    async def get_all_raw_data(self, topic: str, msg: Thing) -> Thing:
-        log.info(f"Received request to get all raw data from {self._DB_NAME}")
+    async def get_all_raw_data(self, _: str, __: Thing) -> Thing:
+        """
+        Gets all raw data from the database.
+
+        Parameters
+        ----------
+        _
+            The topic of the message. This is not used in the method, but is required by the `@reply` decorator.
+        __
+            The message. This is not used in the method, but is required by the `@reply` decorator.
+
+        Returns
+        -------
+        Thing
+            A Thing containing the raw data from the database. If the operation was successful, the Thing will contain
+            the raw data. If the operation was not successful, the Thing will contain an error message.
+        """
+        self._logger.info(f"Received request to get all raw data from {self._DB_NAME}")
 
         # query all entries from the table KIOptiPackRaw
         cursor = self._mariadb_connection.cursor()
@@ -157,7 +228,7 @@ class DatabaseMariaService(FastIoTService):
             cursor.execute("SELECT * FROM KIOptiPackRaw")
             raw_data_entries = cursor.fetchall()
         except Exception as e:
-            log.error(f"Error while querying data from {self._DB_NAME}: {e}")
+            self._logger.error(f"Error while querying data from {self._DB_NAME}: {e}")
             return error_response_thing(exception=e, fiot_service=self)
         finally:
             cursor.close()
@@ -165,15 +236,31 @@ class DatabaseMariaService(FastIoTService):
         return ok_response_thing(payload=raw_data_entries, fiot_service=self)
 
     @reply(DB_UPSERT_MANY_PROCESSED_DATAPOINTS_SUBJECT)
-    async def db_save_upsert_processed_datapoints(self, topic: str, msg: Thing) -> Thing:
+    async def db_save_upsert_processed_datapoints(self, _: str, msg: Thing) -> Thing:
+        """
+        Saves or updates many processed data points in the database.
 
+        Parameters
+        ----------
+        _
+            The topic of the message. This is not used in the method, but is required by the `@reply` decorator.
+        msg
+            The message containing the processed data points to save or update.
+
+        Returns
+        -------
+        Thing
+            A Thing containing the result of the operation. If the operation was successful, the Thing will contain
+            the number of rows inserted into the database. If the operation was not successful, the Thing will contain
+            an error message.
+        """
         if not isinstance(msg.value, list):
-            log.error(f"Payload (the 'value' field of the msg Thing) must be of type list, "
+            self._logger.error(f"Payload (the 'value' field of the msg Thing) must be of type list, "
                       f"but received: {type(msg.value)}")
             raise ValueError("Payload must be a list of processed data points")
 
         data_points: list[dict] = msg.value
-        log.info(f"Received {len(data_points)} processed data points to be inserted into {self._DB_NAME}")
+        self._logger.info(f"Received {len(data_points)} processed data points to be inserted into {self._DB_NAME}")
 
         cursor = self._mariadb_connection.cursor()
         try:
@@ -210,10 +297,10 @@ class DatabaseMariaService(FastIoTService):
                 data_points
             )
             self._mariadb_connection.commit()
-            log.info(f"DB transaction result: {res}")
-            log.info(f"Inserted {res} data points into {self._DB_NAME}")
+            self._logger.info(f"DB transaction result: {res}")
+            self._logger.info(f"Inserted {res} data points into {self._DB_NAME}")
         except Exception as e:
-            log.error(f"Error while inserting data points into {self._DB_NAME}: {e}")
+            self._logger.error(f"Error while inserting data points into {self._DB_NAME}: {e}")
             return error_response_thing(exception=e, fiot_service=self)
 
         # feel free to include whatever information you want to return here.
@@ -227,8 +314,25 @@ class DatabaseMariaService(FastIoTService):
         return ok_response_thing(payload=db_specific_info, fiot_service=self)
 
     @reply(DB_GET_PROCESSED_DATA_COUNT_SUBJECT)
-    async def get_processed_data_count(self, topic: str, msg: Thing) -> Thing:
-        log.info(f"Received request to get the number of processed data points from {self._DB_NAME}")
+    async def get_processed_data_count(self, _: str, __: Thing) -> Thing:
+        """
+        Gets the number of processed data points from the database.
+
+        Parameters
+        ----------
+        _
+            The topic of the message. This is not used in the method, but is required by the `@reply` decorator.
+        __
+            The message. This is not used in the method, but is required by the `@reply` decorator.
+
+        Returns
+        -------
+        Thing
+            A Thing containing the number of processed data points from the database. If the operation was successful,
+            the Thing will contain the number of processed data points. If the operation was not successful, the Thing
+            will contain an error message.
+        """
+        self._logger.info(f"Received request to get the number of processed data points from {self._DB_NAME}")
 
         try:
             cursor = self._mariadb_connection.cursor()
@@ -237,14 +341,33 @@ class DatabaseMariaService(FastIoTService):
             count = result['count']
             cursor.close()
         except Exception as e:
-            log.error(f"Error while counting processed data points in mariadb: {e}")
+            self._logger.error(f"Error while counting processed data points in mariadb: {e}")
             return error_response_thing(exception=e, fiot_service=self)
 
         return ok_response_thing(payload=count, fiot_service=self)
 
     @reply(DB_GET_PROCESSED_DATA_PAGE_SUBJECT)
-    async def get_processed_data_page(self, topic: str, msg: Thing) -> Thing:
-        log.info(f"Received request to get a page of processed data points from {self._DB_NAME}")
+    async def get_processed_data_page(self, _: str, msg: Thing) -> Thing:
+        """
+        Gets a page of processed data points from the database.
+
+        Parameters
+        ----------
+        _
+            The topic of the message. This is not used in the method, but is required by the `@reply` decorator.
+        msg
+            The message containing the parameters for the page. The message should contain the following fields:
+            - `page`: The page number to get.
+            - `page_size`: The number of items per page.
+
+        Returns
+        -------
+        Thing
+            A Thing containing the page of processed data points from the database. If the operation was successful,
+            the Thing will contain the page of processed data points. If the operation was not successful, the Thing
+            will contain an error message.
+        """
+        self._logger.info(f"Received request to get a page of processed data points from {self._DB_NAME}")
         default_params = {
             "page": 0,
             "page_size": 10,
@@ -255,7 +378,7 @@ class DatabaseMariaService(FastIoTService):
         # warning if unexpected parameters are present
         for k in params.keys():
             if k not in default_params.keys():
-                log.warning(f"Unexpected parameter '{k}' in request. Ignoring it.")
+                self._logger.warning(f"Unexpected parameter '{k}' in request. Ignoring it.")
 
         # merge default and user parameters
         params = {**default_params, **params}
@@ -284,14 +407,12 @@ class DatabaseMariaService(FastIoTService):
                 del row["id"]
 
         except Exception as e:
-            log.error(f"Error while counting processed data points in {self._DB_NAME}: {e}")
+            self._logger.error(f"Error while counting processed data points in {self._DB_NAME}: {e}")
             return error_response_thing(exception=e, fiot_service=self)
 
         return ok_response_thing(payload=page_documents, fiot_service=self)
 
 
 if __name__ == '__main__':
-    # Change this to reduce verbosity or remove completely to use `FASTIOT_LOG_LEVEL` environment variable to configure
-    # logging.
     logging.basicConfig(level=logging.DEBUG)
     DatabaseMariaService.main()
