@@ -11,16 +11,25 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "blueprint_dev_v2"
-version = "0.0.0"           # will be changed automatically
+version = "0.0.1"           # will be changed automatically
 authors = [{name = "qwerty" },]
 description = ""
 readme = "README.md"
 requires-python = "~=3.11"
-dependencies = ["fastiot>=1.0,<2"]
+dependencies = [
+    "fastiot>=1.0,<2",
+    "pip-tools>=6.4,<7",
+]
 
 # will be changed automatically
 [project.optional-dependencies]
-all = []
+dev = [
+    "furo",
+    "sphinx",
+    "myst-parser",
+    "nbsphinx",
+    "sphinx-copybutton"
+]
 
 # will be changed automatically
 [tool.setuptools.packages.find]
