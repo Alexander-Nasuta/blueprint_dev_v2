@@ -1,0 +1,1212 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
+
+    <!-- Generated with Sphinx 6.2.1 and Furo 2024.01.29 -->
+        <title>ML Training Blueprints - BluePrints 0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=369552022d0b975c8e74270ce6eabe0fb7978f24" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">BluePrints 0.2 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/logo-optipack.svg" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">BluePrints 0.2 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="blueprints.html">Blueprints</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Blueprints</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="blueprints-database.html">Database Blueprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints-dataprocessing.html">Data Processing Blueprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints-ml-training.html">ML Training Blueprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints-ml-serving.html">ML Serving Blueprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints-ml-consuming.html">ML Consuming Blueprints</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../code-docs/code-documentation.html">Code Documentation</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Code Documentation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../code-docs/data-processing-utils.html">Data Processing Utilities</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Data Processing Utilities</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../code-docs/data-processing-utils-data-cleaning.html">Data Cleaning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-docs/data-processing-utils-feature-engineering.html">Feature Engineering</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/tutorial.html">Hallo World</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="ml-training-blueprints">
+<h1>ML Training Blueprints<a class="headerlink" href="#ml-training-blueprints" title="Permalink to this heading">#</a></h1>
+<p>This document provides an overview of the ML training blueprints used in our project.</p>
+<section id="what-are-ml-training-blueprints">
+<h2>What are ML Training Blueprints?<a class="headerlink" href="#what-are-ml-training-blueprints" title="Permalink to this heading">#</a></h2>
+<p>Here, you can provide a high-level description of what ML training blueprints are and how they are used in your project.</p>
+</section>
+<section id="our-ml-training-blueprints">
+<h2>Our ML Training Blueprints<a class="headerlink" href="#our-ml-training-blueprints" title="Permalink to this heading">#</a></h2>
+<p>In this section, you can provide a list of the ML training blueprints used in your project and a brief description of what each one does.</p>
+</section>
+<section id="pytorch-regression-blueprint-wandb">
+<h2>Pytorch Regression Blueprint (WandB)<a class="headerlink" href="#pytorch-regression-blueprint-wandb" title="Permalink to this heading">#</a></h2>
+<span class="index-entry">Pytorch</span>
+<span class="index-entry">Regression</span>
+<span class="index-entry">WandB</span><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="linenos">  2</span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="linenos">  3</span><span class="kn">import</span> <span class="nn">uuid</span>
+<span class="linenos">  4</span>
+<span class="linenos">  5</span><span class="kn">import</span> <span class="nn">wandb</span>
+<span class="linenos">  6</span>
+<span class="linenos">  7</span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="linenos">  8</span>
+<span class="linenos">  9</span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="linenos"> 10</span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="linenos"> 11</span>
+<span class="linenos"> 12</span><span class="kn">from</span> <span class="nn">fastiot.core</span> <span class="kn">import</span> <span class="n">FastIoTService</span><span class="p">,</span> <span class="n">loop</span>
+<span class="linenos"> 13</span><span class="kn">from</span> <span class="nn">rich.progress</span> <span class="kn">import</span> <span class="n">Progress</span>
+<span class="linenos"> 14</span><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<span class="linenos"> 15</span>
+<span class="linenos"> 16</span><span class="kn">from</span> <span class="nn">blueprint_dev_v2.ml_lifecycle_utils.ml_lifecycle_broker_facade</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="linenos"> 17</span>    <span class="n">request_get_processed_data_points_count</span><span class="p">,</span>
+<span class="linenos"> 18</span>    <span class="n">request_get_processed_data_points_page</span>
+<span class="linenos"> 19</span><span class="p">)</span>
+<span class="linenos"> 20</span><span class="kn">from</span> <span class="nn">src.blueprint_dev_v2.logger.logger</span> <span class="kn">import</span> <span class="n">log</span>
+<span class="linenos"> 21</span>
+<span class="linenos"> 22</span><span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span><span class="p">,</span> <span class="n">optim</span>
+<span class="linenos"> 23</span>
+<span class="linenos"> 24</span>
+<span class="linenos"> 25</span><span class="k">class</span> <span class="nc">DemonstratorNeuralNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="linenos"> 26</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos"> 27</span><span class="sd">    A simple neural network for demonstration purposes.</span>
+<span class="linenos"> 28</span>
+<span class="linenos"> 29</span><span class="sd">    Attributes</span>
+<span class="linenos"> 30</span><span class="sd">    ----------</span>
+<span class="linenos"> 31</span><span class="sd">    layer_1 : torch.nn.Linear</span>
+<span class="linenos"> 32</span><span class="sd">        The first linear layer.</span>
+<span class="linenos"> 33</span><span class="sd">    layer_2 : torch.nn.Linear</span>
+<span class="linenos"> 34</span><span class="sd">        The second linear layer.</span>
+<span class="linenos"> 35</span><span class="sd">    layer_3 : torch.nn.Linear</span>
+<span class="linenos"> 36</span><span class="sd">        The third linear layer.</span>
+<span class="linenos"> 37</span>
+<span class="linenos"> 38</span><span class="sd">    Methods</span>
+<span class="linenos"> 39</span><span class="sd">    -------</span>
+<span class="linenos"> 40</span><span class="sd">    forward(x)</span>
+<span class="linenos"> 41</span><span class="sd">        Forward pass through the network.</span>
+<span class="linenos"> 42</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos"> 43</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="linenos"> 44</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos"> 45</span><span class="sd">        Initialize the network.</span>
+<span class="linenos"> 46</span>
+<span class="linenos"> 47</span><span class="sd">        Parameters</span>
+<span class="linenos"> 48</span><span class="sd">        ----------</span>
+<span class="linenos"> 49</span><span class="sd">        input_dim</span>
+<span class="linenos"> 50</span><span class="sd">        hidden_dim</span>
+<span class="linenos"> 51</span><span class="sd">        output_dim</span>
+<span class="linenos"> 52</span><span class="sd">        args</span>
+<span class="linenos"> 53</span><span class="sd">        kwargs</span>
+<span class="linenos"> 54</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos"> 55</span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="linenos"> 56</span>        <span class="bp">self</span><span class="o">.</span><span class="n">layer_1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">)</span>
+<span class="linenos"> 57</span>        <span class="bp">self</span><span class="o">.</span><span class="n">layer_2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">)</span>
+<span class="linenos"> 58</span>        <span class="bp">self</span><span class="o">.</span><span class="n">layer_3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)</span>
+<span class="linenos"> 59</span>
+<span class="linenos"> 60</span>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="linenos"> 61</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos"> 62</span><span class="sd">        Forward pass through the network.</span>
+<span class="linenos"> 63</span>
+<span class="linenos"> 64</span><span class="sd">        Parameters</span>
+<span class="linenos"> 65</span><span class="sd">        ----------</span>
+<span class="linenos"> 66</span><span class="sd">        x</span>
+<span class="linenos"> 67</span><span class="sd">            The input to the network.</span>
+<span class="linenos"> 68</span>
+<span class="linenos"> 69</span><span class="sd">        Returns</span>
+<span class="linenos"> 70</span><span class="sd">        -------</span>
+<span class="linenos"> 71</span><span class="sd">        torch.Tensor</span>
+<span class="linenos"> 72</span><span class="sd">            The output of the network.</span>
+<span class="linenos"> 73</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos"> 74</span>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="linenos"> 75</span>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="linenos"> 76</span>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="linenos"> 77</span>        <span class="k">return</span> <span class="n">x</span>
+<span class="linenos"> 78</span>
+<span class="linenos"> 79</span>
+<span class="linenos"> 80</span><span class="k">class</span> <span class="nc">PageDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+<span class="linenos"> 81</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos"> 82</span><span class="sd">    A custom dataset for the pytorch regression service.</span>
+<span class="linenos"> 83</span>
+<span class="linenos"> 84</span><span class="sd">    Attributes</span>
+<span class="linenos"> 85</span><span class="sd">    ----------</span>
+<span class="linenos"> 86</span><span class="sd">    _page_size : int</span>
+<span class="linenos"> 87</span><span class="sd">        The size of a page.</span>
+<span class="linenos"> 88</span><span class="sd">    _total_pages : int</span>
+<span class="linenos"> 89</span><span class="sd">        The total number of pages.</span>
+<span class="linenos"> 90</span><span class="sd">    _num_entries_in_db : int</span>
+<span class="linenos"> 91</span><span class="sd">        The total number of entries in the database.</span>
+<span class="linenos"> 92</span><span class="sd">    _current_page : int</span>
+<span class="linenos"> 93</span><span class="sd">        The current page.</span>
+<span class="linenos"> 94</span><span class="sd">    _fast_iot_service : FastIoTService</span>
+<span class="linenos"> 95</span><span class="sd">        The fast iot service.</span>
+<span class="linenos"> 96</span><span class="sd">    _broker_timeout : float</span>
+<span class="linenos"> 97</span><span class="sd">        The broker timeout.</span>
+<span class="linenos"> 98</span><span class="sd">    _page_df : pd.DataFrame</span>
+<span class="linenos"> 99</span><span class="sd">        The page dataframe.</span>
+<span class="linenos">100</span>
+<span class="linenos">101</span><span class="sd">    Methods</span>
+<span class="linenos">102</span><span class="sd">    -------</span>
+<span class="linenos">103</span><span class="sd">    __len__()</span>
+<span class="linenos">104</span><span class="sd">        Return the length of the dataset.</span>
+<span class="linenos">105</span><span class="sd">    _init_total_pages()</span>
+<span class="linenos">106</span><span class="sd">        Initialize the total number of pages.</span>
+<span class="linenos">107</span><span class="sd">    _get_page_df(page)</span>
+<span class="linenos">108</span><span class="sd">        Get the dataframe for a page.</span>
+<span class="linenos">109</span><span class="sd">    init_dataset()</span>
+<span class="linenos">110</span><span class="sd">        Initialize the dataset.</span>
+<span class="linenos">111</span><span class="sd">    has_next_page()</span>
+<span class="linenos">112</span><span class="sd">        Check if there is a next page.</span>
+<span class="linenos">113</span><span class="sd">    load_next_page()</span>
+<span class="linenos">114</span><span class="sd">        Load the next page.</span>
+<span class="linenos">115</span><span class="sd">    __getitem__(idx)</span>
+<span class="linenos">116</span><span class="sd">        Get an item from the dataset.</span>
+<span class="linenos">117</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos">118</span>    <span class="n">_page_size</span><span class="p">:</span> <span class="nb">int</span>
+<span class="linenos">119</span>    <span class="n">_total_pages</span><span class="p">:</span> <span class="nb">int</span>
+<span class="linenos">120</span>    <span class="n">_num_entries_in_db</span><span class="p">:</span> <span class="nb">int</span>
+<span class="linenos">121</span>    <span class="n">_current_page</span><span class="p">:</span> <span class="nb">int</span>
+<span class="linenos">122</span>
+<span class="linenos">123</span>    <span class="n">_fast_iot_service</span><span class="p">:</span> <span class="n">FastIoTService</span>
+<span class="linenos">124</span>    <span class="n">_broker_timeout</span><span class="p">:</span> <span class="nb">float</span>
+<span class="linenos">125</span>
+<span class="linenos">126</span>    <span class="n">_page_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+<span class="linenos">127</span>
+<span class="linenos">128</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fast_iot_service</span><span class="p">:</span> <span class="n">FastIoTService</span><span class="p">,</span> <span class="n">page_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">broker_timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<span class="linenos">129</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">130</span><span class="sd">        Initialize the dataset.</span>
+<span class="linenos">131</span>
+<span class="linenos">132</span><span class="sd">        Parameters</span>
+<span class="linenos">133</span><span class="sd">        ----------</span>
+<span class="linenos">134</span><span class="sd">        fast_iot_service</span>
+<span class="linenos">135</span><span class="sd">        page_size</span>
+<span class="linenos">136</span><span class="sd">        broker_timeout</span>
+<span class="linenos">137</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">138</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_fast_iot_service</span> <span class="o">=</span> <span class="n">fast_iot_service</span>
+<span class="linenos">139</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_broker_timeout</span> <span class="o">=</span> <span class="n">broker_timeout</span>
+<span class="linenos">140</span>
+<span class="linenos">141</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_page_size</span> <span class="o">=</span> <span class="n">page_size</span>
+<span class="linenos">142</span>
+<span class="linenos">143</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">144</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">145</span><span class="sd">        Return the length of the dataset.</span>
+<span class="linenos">146</span>
+<span class="linenos">147</span><span class="sd">        Returns</span>
+<span class="linenos">148</span><span class="sd">        -------</span>
+<span class="linenos">149</span><span class="sd">        int</span>
+<span class="linenos">150</span><span class="sd">            The length of the dataset.</span>
+<span class="linenos">151</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">152</span>        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_page_df</span><span class="p">)</span>
+<span class="linenos">153</span>
+<span class="linenos">154</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">_init_total_pages</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">155</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">156</span><span class="sd">        Initialize the total number of pages.</span>
+<span class="linenos">157</span>
+<span class="linenos">158</span><span class="sd">        Returns</span>
+<span class="linenos">159</span><span class="sd">        -------</span>
+<span class="linenos">160</span><span class="sd">        int</span>
+<span class="linenos">161</span><span class="sd">            The total number of pages.</span>
+<span class="linenos">162</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">163</span>        <span class="c1"># count</span>
+<span class="linenos">164</span>        <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="k">await</span> <span class="n">request_get_processed_data_points_count</span><span class="p">(</span><span class="n">fiot_service</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_fast_iot_service</span><span class="p">)</span>
+<span class="linenos">165</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_num_entries_in_db</span> <span class="o">=</span> <span class="n">count</span>
+<span class="linenos">166</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_total_pages</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_entries_in_db</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_page_size</span><span class="p">))</span>
+<span class="linenos">167</span>
+<span class="linenos">168</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">_get_page_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="linenos">169</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">170</span><span class="sd">        Get the dataframe for a page.</span>
+<span class="linenos">171</span>
+<span class="linenos">172</span><span class="sd">        Parameters</span>
+<span class="linenos">173</span><span class="sd">        ----------</span>
+<span class="linenos">174</span><span class="sd">        page</span>
+<span class="linenos">175</span><span class="sd">            The page. (A slice of the data present in the database.)</span>
+<span class="linenos">176</span>
+<span class="linenos">177</span><span class="sd">        Returns</span>
+<span class="linenos">178</span><span class="sd">        -------</span>
+<span class="linenos">179</span><span class="sd">        pd.DataFrame</span>
+<span class="linenos">180</span><span class="sd">            The dataframe for the page.</span>
+<span class="linenos">181</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">182</span>        <span class="c1"># query the db_service for the number of raw data points</span>
+<span class="linenos">183</span>        <span class="n">page</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="n">request_get_processed_data_points_page</span><span class="p">(</span>
+<span class="linenos">184</span>            <span class="n">fiot_service</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_fast_iot_service</span><span class="p">,</span>
+<span class="linenos">185</span>            <span class="n">page</span><span class="o">=</span><span class="n">page</span><span class="p">,</span>
+<span class="linenos">186</span>            <span class="n">page_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_page_size</span>
+<span class="linenos">187</span>        <span class="p">)</span>
+<span class="linenos">188</span>        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+<span class="linenos">189</span>
+<span class="linenos">190</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">init_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">191</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">192</span><span class="sd">        Initialize the dataset.</span>
+<span class="linenos">193</span>
+<span class="linenos">194</span><span class="sd">        Returns</span>
+<span class="linenos">195</span><span class="sd">        -------</span>
+<span class="linenos">196</span><span class="sd">        None</span>
+<span class="linenos">197</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">198</span>        <span class="c1"># init total number of pages</span>
+<span class="linenos">199</span>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_total_pages</span><span class="p">()</span>
+<span class="linenos">200</span>        <span class="n">df</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_page_df</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos">201</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_page_df</span> <span class="o">=</span> <span class="n">df</span>
+<span class="linenos">202</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_current_page</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">203</span>
+<span class="linenos">204</span>    <span class="k">def</span> <span class="nf">has_next_page</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">205</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">206</span><span class="sd">        Check if there is a next page.</span>
+<span class="linenos">207</span>
+<span class="linenos">208</span><span class="sd">        Returns</span>
+<span class="linenos">209</span><span class="sd">        -------</span>
+<span class="linenos">210</span><span class="sd">        bool</span>
+<span class="linenos">211</span><span class="sd">            True if there is a next page, False otherwise.</span>
+<span class="linenos">212</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">213</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_page</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_pages</span>
+<span class="linenos">214</span>
+<span class="linenos">215</span>    <span class="nd">@property</span>
+<span class="linenos">216</span>    <span class="k">def</span> <span class="nf">num_pages</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">217</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">218</span><span class="sd">        The total number of pages.</span>
+<span class="linenos">219</span>
+<span class="linenos">220</span><span class="sd">        Returns</span>
+<span class="linenos">221</span><span class="sd">        -------</span>
+<span class="linenos">222</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">223</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_pages</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">224</span>            <span class="n">log</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;total pages not initialized. init_page() needs to called and awaited first.&quot;</span><span class="p">)</span>
+<span class="linenos">225</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_pages</span>
+<span class="linenos">226</span>
+<span class="linenos">227</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">load_next_page</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">228</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">229</span><span class="sd">        Load the next page.</span>
+<span class="linenos">230</span>
+<span class="linenos">231</span><span class="sd">        Returns</span>
+<span class="linenos">232</span><span class="sd">        -------</span>
+<span class="linenos">233</span><span class="sd">        None</span>
+<span class="linenos">234</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">235</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_page</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">236</span>            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;page not initialized. init_page() needs to called and awaited first.&quot;</span><span class="p">)</span>
+<span class="linenos">237</span>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;page not initialized. init_page() needs to called and awaited first.&quot;</span><span class="p">)</span>
+<span class="linenos">238</span>
+<span class="linenos">239</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_page</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_pages</span><span class="p">:</span>
+<span class="linenos">240</span>            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;no more pages available&quot;</span><span class="p">)</span>
+<span class="linenos">241</span>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;no more pages available&quot;</span><span class="p">)</span>
+<span class="linenos">242</span>
+<span class="linenos">243</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_current_page</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">244</span>        <span class="n">df</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_page_df</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_page</span><span class="p">)</span>
+<span class="linenos">245</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_page_df</span> <span class="o">=</span> <span class="n">df</span>
+<span class="linenos">246</span>
+<span class="linenos">247</span>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>  <span class="c1"># idx means index of the chunk.</span>
+<span class="linenos">248</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">249</span><span class="sd">        Get an item from the dataset.</span>
+<span class="linenos">250</span>
+<span class="linenos">251</span><span class="sd">        Parameters</span>
+<span class="linenos">252</span><span class="sd">        ----------</span>
+<span class="linenos">253</span><span class="sd">        idx</span>
+<span class="linenos">254</span>
+<span class="linenos">255</span><span class="sd">        Returns</span>
+<span class="linenos">256</span><span class="sd">        -------</span>
+<span class="linenos">257</span><span class="sd">        tuple</span>
+<span class="linenos">258</span><span class="sd">            The input and output data.</span>
+<span class="linenos">259</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">260</span>        <span class="c1"># drop index column</span>
+<span class="linenos">261</span>        <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_page_df</span>
+<span class="linenos">262</span>        <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+<span class="linenos">263</span>
+<span class="linenos">264</span>        <span class="n">y_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">temp</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;aufbereiteter_wert&quot;</span><span class="p">)])</span>
+<span class="linenos">265</span>        <span class="n">x_data</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="linenos">266</span>
+<span class="linenos">267</span>        <span class="c1"># The following condition is actually needed in Pytorch. Otherwise, for our particular example,</span>
+<span class="linenos">268</span>        <span class="c1"># the iterator will be an infinite loop.</span>
+<span class="linenos">269</span>        <span class="c1"># Readers can verify this by removing this condition.</span>
+<span class="linenos">270</span>        <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__len__</span><span class="p">():</span>
+<span class="linenos">271</span>            <span class="k">raise</span> <span class="ne">IndexError</span>
+<span class="linenos">272</span>
+<span class="linenos">273</span>        <span class="k">return</span> <span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span>
+<span class="linenos">274</span>
+<span class="linenos">275</span>
+<span class="linenos">276</span><span class="k">class</span> <span class="nc">MlPytorchRegressionService</span><span class="p">(</span><span class="n">FastIoTService</span><span class="p">):</span>
+<span class="linenos">277</span>
+<span class="linenos">278</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">279</span>        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MlPytorchRegressionService started&quot;</span><span class="p">)</span>
+<span class="linenos">280</span>
+<span class="linenos">281</span>        <span class="c1"># the following requests are needed for the custom dataset</span>
+<span class="linenos">282</span>        <span class="c1"># you can comment the m in to see if they are working</span>
+<span class="linenos">283</span>        <span class="c1"># count: int = await request_get_processed_data_points_count(fiot_service=self)</span>
+<span class="linenos">284</span>        <span class="c1"># page = await request_get_processed_data_points_page(fiot_service=self, page=0, page_size=10)</span>
+<span class="linenos">285</span>        <span class="c1"># pageDataset = PageDataset(fast_iot_service=self, page_size=10)</span>
+<span class="linenos">286</span>        <span class="c1"># await pageDataset.init_dataset()</span>
+<span class="linenos">287</span>        <span class="c1"># await pageDataset.load_next_page()</span>
+<span class="linenos">288</span>
+<span class="linenos">289</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">290</span>        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MlPytorchRegressionService stopped&quot;</span><span class="p">)</span>
+<span class="linenos">291</span>
+<span class="linenos">292</span>    <span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DemonstratorNeuralNet</span><span class="p">:</span>
+<span class="linenos">293</span>        <span class="k">return</span> <span class="n">DemonstratorNeuralNet</span><span class="p">(</span>
+<span class="linenos">294</span>            <span class="n">input_dim</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">295</span>            <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">296</span>            <span class="n">output_dim</span><span class="o">=</span><span class="mi">1</span>
+<span class="linenos">297</span>        <span class="p">)</span>
+<span class="linenos">298</span>
+<span class="linenos">299</span>    <span class="nd">@loop</span>
+<span class="linenos">300</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">training_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">301</span>        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_model</span><span class="p">()</span>
+<span class="linenos">302</span>        <span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">()</span>
+<span class="linenos">303</span>        <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+<span class="linenos">304</span>        <span class="n">dataset</span> <span class="o">=</span> <span class="n">PageDataset</span><span class="p">(</span><span class="n">fast_iot_service</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="linenos">305</span>
+<span class="linenos">306</span>        <span class="c1"># await self.train_model_without_experiment_tracking(dataset, model, loss_fn, optimizer)</span>
+<span class="linenos">307</span>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_model_with_wandb_tracking</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">loss_fn</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">)</span>
+<span class="linenos">308</span>
+<span class="linenos">309</span>        <span class="k">return</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<span class="linenos">310</span>
+<span class="linenos">311</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">train_model_without_experiment_tracking</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">PageDataset</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">DemonstratorNeuralNet</span><span class="p">,</span>
+<span class="linenos">312</span>                                                      <span class="n">loss_fn</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">,</span>
+<span class="linenos">313</span>                                                      <span class="n">optimizer</span><span class="p">:</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">,</span> <span class="n">epochs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+<span class="linenos">314</span>                                                      <span class="n">shuffle</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="linenos">315</span>        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting training loop without experiment tracking.&quot;</span><span class="p">)</span>
+<span class="linenos">316</span>        <span class="k">await</span> <span class="n">dataset</span><span class="o">.</span><span class="n">init_dataset</span><span class="p">()</span>
+<span class="linenos">317</span>        <span class="n">progress</span> <span class="o">=</span> <span class="n">Progress</span><span class="p">()</span>
+<span class="linenos">318</span>        <span class="n">total_steps</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">num_pages</span> <span class="o">*</span> <span class="n">epochs</span>
+<span class="linenos">319</span>        <span class="n">task_id</span> <span class="o">=</span> <span class="n">progress</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="s2">&quot;[cyan]Training...&quot;</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">total_steps</span><span class="p">)</span>
+<span class="linenos">320</span>
+<span class="linenos">321</span>        <span class="k">with</span> <span class="n">progress</span><span class="p">:</span>
+<span class="linenos">322</span>            <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">num_pages</span><span class="p">):</span>
+<span class="linenos">323</span>                <span class="c1"># define pytorch data loader</span>
+<span class="linenos">324</span>                <span class="n">data_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="n">shuffle</span><span class="p">)</span>
+<span class="linenos">325</span>
+<span class="linenos">326</span>                <span class="c1"># define pytorch training loop</span>
+<span class="linenos">327</span>                <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+<span class="linenos">328</span>                    <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_loader</span><span class="p">):</span>
+<span class="linenos">329</span>                        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+<span class="linenos">330</span>                        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="linenos">331</span>                        <span class="c1"># loss = loss_fn(y_pred, y.to(torch.float32))</span>
+<span class="linenos">332</span>                        <span class="c1"># loss.backward()</span>
+<span class="linenos">333</span>                        <span class="c1"># optimizer.step()</span>
+<span class="linenos">334</span>                        <span class="c1"># log.info(f&quot;page: {page}, epoch: {epoch}, batch_idx: {batch_idx}, loss: {loss.item()}&quot;)</span>
+<span class="linenos">335</span>                    <span class="n">progress</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">task_id</span><span class="p">,</span> <span class="n">advance</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos">336</span>
+<span class="linenos">337</span>                <span class="k">await</span> <span class="n">dataset</span><span class="o">.</span><span class="n">load_next_page</span><span class="p">()</span>
+<span class="linenos">338</span>
+<span class="linenos">339</span>        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Training loop without experiment tracking completed.&quot;</span><span class="p">)</span>
+<span class="linenos">340</span>        <span class="c1"># save model</span>
+<span class="linenos">341</span>        <span class="c1"># here you can implement a saving mechanism for the model</span>
+<span class="linenos">342</span>
+<span class="linenos">343</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">train_model_with_wandb_tracking</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">PageDataset</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">DemonstratorNeuralNet</span><span class="p">,</span>
+<span class="linenos">344</span>                                              <span class="n">loss_fn</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">:</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">,</span> <span class="n">epochs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+<span class="linenos">345</span>                                              <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="linenos">346</span>        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting training loop with wandb tracking.&quot;</span><span class="p">)</span>
+<span class="linenos">347</span>        <span class="k">await</span> <span class="n">dataset</span><span class="o">.</span><span class="n">init_dataset</span><span class="p">()</span>
+<span class="linenos">348</span>        <span class="n">progress</span> <span class="o">=</span> <span class="n">Progress</span><span class="p">()</span>
+<span class="linenos">349</span>        <span class="n">total_steps</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">num_pages</span> <span class="o">*</span> <span class="n">epochs</span>
+<span class="linenos">350</span>        <span class="n">task_id</span> <span class="o">=</span> <span class="n">progress</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="s2">&quot;[cyan]Training&quot;</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">total_steps</span><span class="p">)</span>
+<span class="linenos">351</span>
+<span class="linenos">352</span>        <span class="c1"># Initialize a new wandb run</span>
+<span class="linenos">353</span>        <span class="n">config_dict</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos">354</span>            <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="n">epochs</span><span class="p">,</span>
+<span class="linenos">355</span>            <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="n">batch_size</span><span class="p">,</span>
+<span class="linenos">356</span>            <span class="s2">&quot;shuffle&quot;</span><span class="p">:</span> <span class="n">shuffle</span><span class="p">,</span>
+<span class="linenos">357</span>            <span class="s2">&quot;optimizer&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">optimizer</span><span class="p">),</span>
+<span class="linenos">358</span>            <span class="s2">&quot;loss_function&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">loss_fn</span><span class="p">)</span>
+<span class="linenos">359</span>        <span class="p">}</span>
+<span class="linenos">360</span>        <span class="n">run_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span>
+<span class="linenos">361</span>        <span class="n">wandb_run</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
+<span class="linenos">362</span>            <span class="n">project</span><span class="o">=</span><span class="s2">&quot;KIOptipack-dev&quot;</span><span class="p">,</span>
+<span class="linenos">363</span>            <span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">,</span>
+<span class="linenos">364</span>            <span class="n">group</span><span class="o">=</span><span class="s2">&quot;MVDP-pytorch-regression&quot;</span><span class="p">,</span>
+<span class="linenos">365</span>            <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;run_</span><span class="si">{</span><span class="n">run_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+<span class="linenos">366</span>        <span class="p">)</span>
+<span class="linenos">367</span>
+<span class="linenos">368</span>        <span class="c1"># Log gradients and model parameters</span>
+<span class="linenos">369</span>        <span class="n">wandb</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="linenos">370</span>
+<span class="linenos">371</span>        <span class="k">with</span> <span class="n">progress</span><span class="p">:</span>
+<span class="linenos">372</span>            <span class="n">optimizer_step</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">373</span>            <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">num_pages</span><span class="p">):</span>
+<span class="linenos">374</span>                <span class="c1"># define pytorch data loader</span>
+<span class="linenos">375</span>                <span class="n">data_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="n">shuffle</span><span class="p">)</span>
+<span class="linenos">376</span>
+<span class="linenos">377</span>                <span class="c1"># define pytorch training loop</span>
+<span class="linenos">378</span>                <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+<span class="linenos">379</span>                    <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_loader</span><span class="p">):</span>
+<span class="linenos">380</span>                        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+<span class="linenos">381</span>                        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="linenos">382</span>                        <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+<span class="linenos">383</span>                        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+<span class="linenos">384</span>                        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+<span class="linenos">385</span>                        <span class="c1"># Log metrics with wandb</span>
+<span class="linenos">386</span>                        <span class="n">wandb</span><span class="o">.</span><span class="n">log</span><span class="p">({</span>
+<span class="linenos">387</span>                            <span class="s2">&quot;loss&quot;</span><span class="p">:</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span>
+<span class="linenos">388</span>                            <span class="s2">&quot;epoch&quot;</span><span class="p">:</span> <span class="n">epoch</span><span class="p">,</span>
+<span class="linenos">389</span>                            <span class="s2">&quot;page&quot;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span>
+<span class="linenos">390</span>                            <span class="s2">&quot;optimizer_step&quot;</span><span class="p">:</span> <span class="n">optimizer_step</span>
+<span class="linenos">391</span>                        <span class="p">})</span>
+<span class="linenos">392</span>                        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;page: </span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s2">, epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">, batch_idx: </span><span class="si">{</span><span class="n">batch_idx</span><span class="si">}</span><span class="s2">, loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">393</span>
+<span class="linenos">394</span>                        <span class="n">optimizer_step</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">395</span>                    <span class="n">progress</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">task_id</span><span class="p">,</span> <span class="n">advance</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="p">)</span>
+<span class="linenos">396</span>
+<span class="linenos">397</span>                <span class="k">await</span> <span class="n">dataset</span><span class="o">.</span><span class="n">load_next_page</span><span class="p">()</span>
+<span class="linenos">398</span>
+<span class="linenos">399</span>        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Training loop with wandb tracking completed.&quot;</span><span class="p">)</span>
+<span class="linenos">400</span>        <span class="c1"># save model</span>
+<span class="linenos">401</span>        <span class="n">model_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;model_</span><span class="si">{</span><span class="n">run_id</span><span class="si">}</span><span class="s2">.pth&quot;</span>
+<span class="linenos">402</span>        <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="n">model_name</span><span class="p">)</span>
+<span class="linenos">403</span>        <span class="n">artifact</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Artifact</span><span class="p">(</span>
+<span class="linenos">404</span>            <span class="sa">f</span><span class="s1">&#39;DemonstratorNeuralNet&#39;</span><span class="p">,</span>
+<span class="linenos">405</span>            <span class="n">incremental</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos">406</span>            <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;pytorch-regression-model&#39;</span><span class="p">,</span>
+<span class="linenos">407</span>            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Pytorch regression model, saved using the state_dict method.&quot;</span><span class="p">,</span>
+<span class="linenos">408</span>            <span class="n">metadata</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos">409</span>                <span class="s2">&quot;run_id&quot;</span><span class="p">:</span> <span class="n">run_id</span><span class="p">,</span>
+<span class="linenos">410</span>                <span class="s2">&quot;model_name&quot;</span><span class="p">:</span> <span class="n">model_name</span><span class="p">,</span>
+<span class="linenos">411</span>                <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+<span class="linenos">412</span>                <span class="s2">&quot;input_dim&quot;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">layer_1</span><span class="o">.</span><span class="n">in_features</span><span class="p">,</span>
+<span class="linenos">413</span>                <span class="s2">&quot;output_dim&quot;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">layer_3</span><span class="o">.</span><span class="n">out_features</span><span class="p">,</span>
+<span class="linenos">414</span>            <span class="p">}</span>
+<span class="linenos">415</span>        <span class="p">)</span>
+<span class="linenos">416</span>        <span class="n">artifact</span><span class="o">.</span><span class="n">add_file</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+<span class="linenos">417</span>        <span class="n">wandb_run</span><span class="o">.</span><span class="n">log_artifact</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
+<span class="linenos">418</span>        <span class="c1"># Finish the wandb run</span>
+<span class="linenos">419</span>        <span class="n">wandb_run</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+<span class="linenos">420</span>
+<span class="linenos">421</span>        <span class="c1"># delete to local model file</span>
+<span class="linenos">422</span>        <span class="k">try</span><span class="p">:</span>
+<span class="linenos">423</span>            <span class="kn">import</span> <span class="nn">os</span>
+<span class="linenos">424</span>            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+<span class="linenos">425</span>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="linenos">426</span>            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error while deleting local model file: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">427</span>
+<span class="linenos">428</span>
+<span class="linenos">429</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos">430</span>    <span class="c1"># Change this to reduce verbosity or remove completely to use `FASTIOT_LOG_LEVEL` environment variable to configure</span>
+<span class="linenos">431</span>    <span class="c1"># logging.</span>
+<span class="linenos">432</span>    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+<span class="linenos">433</span>    <span class="n">MlPytorchRegressionService</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Here, you can provide instructions or guidelines on how to use the ML training blueprints in your project.</p>
+</section>
+<section id="pytorch-regression-blueprint-mlflow">
+<h2>Pytorch Regression Blueprint (MLflow)<a class="headerlink" href="#pytorch-regression-blueprint-mlflow" title="Permalink to this heading">#</a></h2>
+<span class="index-entry">Pytorch</span>
+<span class="index-entry">Regression</span>
+<span class="index-entry">MLflow</span><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">  2</span><span class="sd">mlflow server --host 127.0.0.1 --port 8080</span>
+<span class="linenos">  3</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">  4</span>
+<span class="linenos">  5</span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="linenos">  6</span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="linenos">  7</span><span class="kn">import</span> <span class="nn">pprint</span>
+<span class="linenos">  8</span><span class="kn">import</span> <span class="nn">uuid</span>
+<span class="linenos">  9</span>
+<span class="linenos"> 10</span><span class="kn">import</span> <span class="nn">mlflow</span>
+<span class="linenos"> 11</span><span class="kn">import</span> <span class="nn">random</span>
+<span class="linenos"> 12</span>
+<span class="linenos"> 13</span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="linenos"> 14</span>
+<span class="linenos"> 15</span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="linenos"> 16</span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="linenos"> 17</span>
+<span class="linenos"> 18</span><span class="kn">from</span> <span class="nn">fastiot.core</span> <span class="kn">import</span> <span class="n">FastIoTService</span><span class="p">,</span> <span class="n">Subject</span><span class="p">,</span> <span class="n">subscribe</span><span class="p">,</span> <span class="n">loop</span>
+<span class="linenos"> 19</span><span class="kn">from</span> <span class="nn">fastiot.core.core_uuid</span> <span class="kn">import</span> <span class="n">get_uuid</span>
+<span class="linenos"> 20</span><span class="kn">from</span> <span class="nn">fastiot.core.time</span> <span class="kn">import</span> <span class="n">get_time_now</span>
+<span class="linenos"> 21</span><span class="kn">from</span> <span class="nn">fastiot.msg.thing</span> <span class="kn">import</span> <span class="n">Thing</span>
+<span class="linenos"> 22</span><span class="kn">from</span> <span class="nn">rich.progress</span> <span class="kn">import</span> <span class="n">Progress</span>
+<span class="linenos"> 23</span><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<span class="linenos"> 24</span>
+<span class="linenos"> 25</span><span class="kn">from</span> <span class="nn">blueprint_dev_v2.ml_lifecycle_utils.ml_lifecycle_broker_facade</span> <span class="kn">import</span> <span class="n">request_get_processed_data_points_count</span><span class="p">,</span> \
+<span class="linenos"> 26</span>    <span class="n">request_get_all_raw_data_points</span><span class="p">,</span> <span class="n">request_get_processed_data_points_page</span>
+<span class="linenos"> 27</span><span class="kn">from</span> <span class="nn">src.blueprint_dev_v2.logger.logger</span> <span class="kn">import</span> <span class="n">log</span>
+<span class="linenos"> 28</span>
+<span class="linenos"> 29</span><span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span><span class="p">,</span> <span class="n">optim</span>
+<span class="linenos"> 30</span>
+<span class="linenos"> 31</span>
+<span class="linenos"> 32</span><span class="k">class</span> <span class="nc">DemonstratorNeuralNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="linenos"> 33</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos"> 34</span><span class="sd">    A simple neural network for demonstration purposes.</span>
+<span class="linenos"> 35</span>
+<span class="linenos"> 36</span><span class="sd">    Attributes</span>
+<span class="linenos"> 37</span><span class="sd">    ----------</span>
+<span class="linenos"> 38</span><span class="sd">    layer_1 : torch.nn.Linear</span>
+<span class="linenos"> 39</span><span class="sd">        The first linear layer.</span>
+<span class="linenos"> 40</span><span class="sd">    layer_2 : torch.nn.Linear</span>
+<span class="linenos"> 41</span><span class="sd">        The second linear layer.</span>
+<span class="linenos"> 42</span><span class="sd">    layer_3 : torch.nn.Linear</span>
+<span class="linenos"> 43</span><span class="sd">        The third linear layer.</span>
+<span class="linenos"> 44</span>
+<span class="linenos"> 45</span><span class="sd">    Methods</span>
+<span class="linenos"> 46</span><span class="sd">    -------</span>
+<span class="linenos"> 47</span><span class="sd">    forward(x)</span>
+<span class="linenos"> 48</span><span class="sd">        Forward pass through the network.</span>
+<span class="linenos"> 49</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos"> 50</span>
+<span class="linenos"> 51</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="linenos"> 52</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos"> 53</span><span class="sd">        Initialize the network.</span>
+<span class="linenos"> 54</span>
+<span class="linenos"> 55</span><span class="sd">        Parameters</span>
+<span class="linenos"> 56</span><span class="sd">        ----------</span>
+<span class="linenos"> 57</span><span class="sd">        input_dim</span>
+<span class="linenos"> 58</span><span class="sd">        hidden_dim</span>
+<span class="linenos"> 59</span><span class="sd">        output_dim</span>
+<span class="linenos"> 60</span><span class="sd">        args</span>
+<span class="linenos"> 61</span><span class="sd">        kwargs</span>
+<span class="linenos"> 62</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos"> 63</span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="linenos"> 64</span>        <span class="bp">self</span><span class="o">.</span><span class="n">layer_1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">)</span>
+<span class="linenos"> 65</span>        <span class="bp">self</span><span class="o">.</span><span class="n">layer_2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">)</span>
+<span class="linenos"> 66</span>        <span class="bp">self</span><span class="o">.</span><span class="n">layer_3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)</span>
+<span class="linenos"> 67</span>
+<span class="linenos"> 68</span>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="linenos"> 69</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos"> 70</span><span class="sd">        Forward pass through the network.</span>
+<span class="linenos"> 71</span>
+<span class="linenos"> 72</span><span class="sd">        Parameters</span>
+<span class="linenos"> 73</span><span class="sd">        ----------</span>
+<span class="linenos"> 74</span><span class="sd">        x</span>
+<span class="linenos"> 75</span><span class="sd">            The input to the network.</span>
+<span class="linenos"> 76</span>
+<span class="linenos"> 77</span><span class="sd">        Returns</span>
+<span class="linenos"> 78</span><span class="sd">        -------</span>
+<span class="linenos"> 79</span><span class="sd">        torch.Tensor</span>
+<span class="linenos"> 80</span><span class="sd">            The output of the network.</span>
+<span class="linenos"> 81</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos"> 82</span>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="linenos"> 83</span>        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="linenos"> 84</span>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="linenos"> 85</span>        <span class="k">return</span> <span class="n">x</span>
+<span class="linenos"> 86</span>
+<span class="linenos"> 87</span>
+<span class="linenos"> 88</span><span class="k">class</span> <span class="nc">PageDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+<span class="linenos"> 89</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos"> 90</span><span class="sd">    A custom dataset for the pytorch regression service.</span>
+<span class="linenos"> 91</span>
+<span class="linenos"> 92</span><span class="sd">    Attributes</span>
+<span class="linenos"> 93</span><span class="sd">    ----------</span>
+<span class="linenos"> 94</span><span class="sd">    _page_size : int</span>
+<span class="linenos"> 95</span><span class="sd">        The size of a page.</span>
+<span class="linenos"> 96</span><span class="sd">    _total_pages : int</span>
+<span class="linenos"> 97</span><span class="sd">        The total number of pages.</span>
+<span class="linenos"> 98</span><span class="sd">    _num_entries_in_db : int</span>
+<span class="linenos"> 99</span><span class="sd">        The total number of entries in the database.</span>
+<span class="linenos">100</span><span class="sd">    _current_page : int</span>
+<span class="linenos">101</span><span class="sd">        The current page.</span>
+<span class="linenos">102</span><span class="sd">    _fast_iot_service : FastIoTService</span>
+<span class="linenos">103</span><span class="sd">        The fast iot service.</span>
+<span class="linenos">104</span><span class="sd">    _broker_timeout : float</span>
+<span class="linenos">105</span><span class="sd">        The broker timeout.</span>
+<span class="linenos">106</span><span class="sd">    _page_df : pd.DataFrame</span>
+<span class="linenos">107</span><span class="sd">        The page dataframe.</span>
+<span class="linenos">108</span>
+<span class="linenos">109</span><span class="sd">    Methods</span>
+<span class="linenos">110</span><span class="sd">    -------</span>
+<span class="linenos">111</span><span class="sd">    __len__()</span>
+<span class="linenos">112</span><span class="sd">        Return the length of the dataset.</span>
+<span class="linenos">113</span><span class="sd">    _init_total_pages()</span>
+<span class="linenos">114</span><span class="sd">        Initialize the total number of pages.</span>
+<span class="linenos">115</span><span class="sd">    _get_page_df(page)</span>
+<span class="linenos">116</span><span class="sd">        Get the dataframe for a page.</span>
+<span class="linenos">117</span><span class="sd">    init_dataset()</span>
+<span class="linenos">118</span><span class="sd">        Initialize the dataset.</span>
+<span class="linenos">119</span><span class="sd">    has_next_page()</span>
+<span class="linenos">120</span><span class="sd">        Check if there is a next page.</span>
+<span class="linenos">121</span><span class="sd">    load_next_page()</span>
+<span class="linenos">122</span><span class="sd">        Load the next page.</span>
+<span class="linenos">123</span><span class="sd">    __getitem__(idx)</span>
+<span class="linenos">124</span><span class="sd">        Get an item from the dataset.</span>
+<span class="linenos">125</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos">126</span>    <span class="n">_page_size</span><span class="p">:</span> <span class="nb">int</span>
+<span class="linenos">127</span>    <span class="n">_total_pages</span><span class="p">:</span> <span class="nb">int</span>
+<span class="linenos">128</span>    <span class="n">_num_entries_in_db</span><span class="p">:</span> <span class="nb">int</span>
+<span class="linenos">129</span>    <span class="n">_current_page</span><span class="p">:</span> <span class="nb">int</span>
+<span class="linenos">130</span>
+<span class="linenos">131</span>    <span class="n">_fast_iot_service</span><span class="p">:</span> <span class="n">FastIoTService</span>
+<span class="linenos">132</span>    <span class="n">_broker_timeout</span><span class="p">:</span> <span class="nb">float</span>
+<span class="linenos">133</span>
+<span class="linenos">134</span>    <span class="n">_page_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+<span class="linenos">135</span>
+<span class="linenos">136</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fast_iot_service</span><span class="p">:</span> <span class="n">FastIoTService</span><span class="p">,</span> <span class="n">page_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">broker_timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<span class="linenos">137</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">138</span><span class="sd">        Initialize the dataset.</span>
+<span class="linenos">139</span>
+<span class="linenos">140</span><span class="sd">        Parameters</span>
+<span class="linenos">141</span><span class="sd">        ----------</span>
+<span class="linenos">142</span><span class="sd">        fast_iot_service</span>
+<span class="linenos">143</span><span class="sd">        page_size</span>
+<span class="linenos">144</span><span class="sd">        broker_timeout</span>
+<span class="linenos">145</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">146</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_fast_iot_service</span> <span class="o">=</span> <span class="n">fast_iot_service</span>
+<span class="linenos">147</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_broker_timeout</span> <span class="o">=</span> <span class="n">broker_timeout</span>
+<span class="linenos">148</span>
+<span class="linenos">149</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_page_size</span> <span class="o">=</span> <span class="n">page_size</span>
+<span class="linenos">150</span>
+<span class="linenos">151</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">152</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">153</span><span class="sd">        Return the length of the dataset.</span>
+<span class="linenos">154</span>
+<span class="linenos">155</span><span class="sd">        Returns</span>
+<span class="linenos">156</span><span class="sd">        -------</span>
+<span class="linenos">157</span><span class="sd">        int</span>
+<span class="linenos">158</span><span class="sd">            The length of the dataset.</span>
+<span class="linenos">159</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">160</span>        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_page_df</span><span class="p">)</span>
+<span class="linenos">161</span>
+<span class="linenos">162</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">_init_total_pages</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">163</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">164</span><span class="sd">        Initialize the total number of pages.</span>
+<span class="linenos">165</span>
+<span class="linenos">166</span><span class="sd">        Returns</span>
+<span class="linenos">167</span><span class="sd">        -------</span>
+<span class="linenos">168</span><span class="sd">        int</span>
+<span class="linenos">169</span><span class="sd">            The total number of pages.</span>
+<span class="linenos">170</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">171</span>        <span class="c1"># count</span>
+<span class="linenos">172</span>        <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="k">await</span> <span class="n">request_get_processed_data_points_count</span><span class="p">(</span><span class="n">fiot_service</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_fast_iot_service</span><span class="p">)</span>
+<span class="linenos">173</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_num_entries_in_db</span> <span class="o">=</span> <span class="n">count</span>
+<span class="linenos">174</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_total_pages</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_entries_in_db</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_page_size</span><span class="p">))</span>
+<span class="linenos">175</span>
+<span class="linenos">176</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">_get_page_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="linenos">177</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">178</span><span class="sd">        Get the dataframe for a page.</span>
+<span class="linenos">179</span>
+<span class="linenos">180</span><span class="sd">        Parameters</span>
+<span class="linenos">181</span><span class="sd">        ----------</span>
+<span class="linenos">182</span><span class="sd">        page</span>
+<span class="linenos">183</span><span class="sd">            The page. (A slice of the data present in the database.)</span>
+<span class="linenos">184</span>
+<span class="linenos">185</span><span class="sd">        Returns</span>
+<span class="linenos">186</span><span class="sd">        -------</span>
+<span class="linenos">187</span><span class="sd">        pd.DataFrame</span>
+<span class="linenos">188</span><span class="sd">            The dataframe for the page.</span>
+<span class="linenos">189</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">190</span>        <span class="c1"># query the db_service for the number of raw data points</span>
+<span class="linenos">191</span>        <span class="n">page</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="n">request_get_processed_data_points_page</span><span class="p">(</span>
+<span class="linenos">192</span>            <span class="n">fiot_service</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_fast_iot_service</span><span class="p">,</span>
+<span class="linenos">193</span>            <span class="n">page</span><span class="o">=</span><span class="n">page</span><span class="p">,</span>
+<span class="linenos">194</span>            <span class="n">page_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_page_size</span>
+<span class="linenos">195</span>        <span class="p">)</span>
+<span class="linenos">196</span>        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+<span class="linenos">197</span>
+<span class="linenos">198</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">init_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">199</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">200</span><span class="sd">        Initialize the dataset.</span>
+<span class="linenos">201</span>
+<span class="linenos">202</span><span class="sd">        Returns</span>
+<span class="linenos">203</span><span class="sd">        -------</span>
+<span class="linenos">204</span><span class="sd">        None</span>
+<span class="linenos">205</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">206</span>        <span class="c1"># init total number of pages</span>
+<span class="linenos">207</span>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_total_pages</span><span class="p">()</span>
+<span class="linenos">208</span>        <span class="n">df</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_page_df</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos">209</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_page_df</span> <span class="o">=</span> <span class="n">df</span>
+<span class="linenos">210</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_current_page</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">211</span>
+<span class="linenos">212</span>    <span class="k">def</span> <span class="nf">has_next_page</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">213</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">214</span><span class="sd">        Check if there is a next page.</span>
+<span class="linenos">215</span>
+<span class="linenos">216</span><span class="sd">        Returns</span>
+<span class="linenos">217</span><span class="sd">        -------</span>
+<span class="linenos">218</span><span class="sd">        bool</span>
+<span class="linenos">219</span><span class="sd">            True if there is a next page, False otherwise.</span>
+<span class="linenos">220</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">221</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_page</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_pages</span>
+<span class="linenos">222</span>
+<span class="linenos">223</span>    <span class="nd">@property</span>
+<span class="linenos">224</span>    <span class="k">def</span> <span class="nf">num_pages</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">225</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">226</span><span class="sd">        The total number of pages.</span>
+<span class="linenos">227</span>
+<span class="linenos">228</span><span class="sd">        Returns</span>
+<span class="linenos">229</span><span class="sd">        -------</span>
+<span class="linenos">230</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">231</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_pages</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">232</span>            <span class="n">log</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;total pages not initialized. init_page() needs to called and awaited first.&quot;</span><span class="p">)</span>
+<span class="linenos">233</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_pages</span>
+<span class="linenos">234</span>
+<span class="linenos">235</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">load_next_page</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">236</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">237</span><span class="sd">        Load the next page.</span>
+<span class="linenos">238</span>
+<span class="linenos">239</span><span class="sd">        Returns</span>
+<span class="linenos">240</span><span class="sd">        -------</span>
+<span class="linenos">241</span><span class="sd">        None</span>
+<span class="linenos">242</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">243</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_page</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">244</span>            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;page not initialized. init_page() needs to called and awaited first.&quot;</span><span class="p">)</span>
+<span class="linenos">245</span>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;page not initialized. init_page() needs to called and awaited first.&quot;</span><span class="p">)</span>
+<span class="linenos">246</span>
+<span class="linenos">247</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_page</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_pages</span><span class="p">:</span>
+<span class="linenos">248</span>            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;no more pages available&quot;</span><span class="p">)</span>
+<span class="linenos">249</span>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;no more pages available&quot;</span><span class="p">)</span>
+<span class="linenos">250</span>
+<span class="linenos">251</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_current_page</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">252</span>        <span class="n">df</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_page_df</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_page</span><span class="p">)</span>
+<span class="linenos">253</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_page_df</span> <span class="o">=</span> <span class="n">df</span>
+<span class="linenos">254</span>
+<span class="linenos">255</span>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>  <span class="c1"># idx means index of the chunk.</span>
+<span class="linenos">256</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">257</span><span class="sd">        Get an item from the dataset.</span>
+<span class="linenos">258</span>
+<span class="linenos">259</span><span class="sd">        Parameters</span>
+<span class="linenos">260</span><span class="sd">        ----------</span>
+<span class="linenos">261</span><span class="sd">        idx</span>
+<span class="linenos">262</span>
+<span class="linenos">263</span><span class="sd">        Returns</span>
+<span class="linenos">264</span><span class="sd">        -------</span>
+<span class="linenos">265</span><span class="sd">        tuple</span>
+<span class="linenos">266</span><span class="sd">            The input and output data.</span>
+<span class="linenos">267</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">268</span>        <span class="c1"># drop index column</span>
+<span class="linenos">269</span>        <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_page_df</span>
+<span class="linenos">270</span>        <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+<span class="linenos">271</span>
+<span class="linenos">272</span>        <span class="n">y_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">temp</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;aufbereiteter_wert&quot;</span><span class="p">)])</span>
+<span class="linenos">273</span>        <span class="n">x_data</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="linenos">274</span>
+<span class="linenos">275</span>        <span class="c1"># The following condition is actually needed in Pytorch. Otherwise, for our particular example,</span>
+<span class="linenos">276</span>        <span class="c1"># the iterator will be an infinite loop.</span>
+<span class="linenos">277</span>        <span class="c1"># Readers can verify this by removing this condition.</span>
+<span class="linenos">278</span>        <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__len__</span><span class="p">():</span>
+<span class="linenos">279</span>            <span class="k">raise</span> <span class="ne">IndexError</span>
+<span class="linenos">280</span>
+<span class="linenos">281</span>        <span class="k">return</span> <span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span>
+<span class="linenos">282</span>
+<span class="linenos">283</span>
+<span class="linenos">284</span><span class="k">class</span> <span class="nc">MlPytorchRegressionMlflowService</span><span class="p">(</span><span class="n">FastIoTService</span><span class="p">):</span>
+<span class="linenos">285</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">286</span><span class="sd">    A service for training a pytorch model with mlflow experiment tracking.</span>
+<span class="linenos">287</span>
+<span class="linenos">288</span><span class="sd">    Attributes</span>
+<span class="linenos">289</span><span class="sd">    ----------</span>
+<span class="linenos">290</span><span class="sd">    MLFLOW_TRACKING_URI : str</span>
+<span class="linenos">291</span><span class="sd">        The mlflow tracking uri.</span>
+<span class="linenos">292</span>
+<span class="linenos">293</span><span class="sd">    Methods</span>
+<span class="linenos">294</span><span class="sd">    -------</span>
+<span class="linenos">295</span><span class="sd">    _start()</span>
+<span class="linenos">296</span><span class="sd">        Start the service.</span>
+<span class="linenos">297</span><span class="sd">    _stop()</span>
+<span class="linenos">298</span><span class="sd">        Stop the service.</span>
+<span class="linenos">299</span><span class="sd">    get_model()</span>
+<span class="linenos">300</span><span class="sd">        Get the model.</span>
+<span class="linenos">301</span><span class="sd">    training_loop()</span>
+<span class="linenos">302</span><span class="sd">        The training loop.</span>
+<span class="linenos">303</span><span class="sd">    train_model_without_experiment_tracking(dataset, model, loss_fn, optimizer, epochs, batch_size, shuffle)</span>
+<span class="linenos">304</span><span class="sd">        Train the model without experiment tracking.</span>
+<span class="linenos">305</span><span class="sd">    train_model_with_wandb_tracking(dataset, model, loss_fn, optimizer, epochs, batch_size, shuffle)</span>
+<span class="linenos">306</span><span class="sd">        Train the model with wandb tracking.</span>
+<span class="linenos">307</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos">308</span>    <span class="n">MLFLOW_TRACKING_URI</span> <span class="o">=</span> <span class="s2">&quot;http://127.0.0.1:8080&quot;</span>
+<span class="linenos">309</span>
+<span class="linenos">310</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">311</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">312</span><span class="sd">        Runs when the service starts.</span>
+<span class="linenos">313</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">314</span>        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MlPytorchRegressionService started&quot;</span><span class="p">)</span>
+<span class="linenos">315</span>        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting MLFlow tracking uri to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">MLFLOW_TRACKING_URI</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">316</span>        <span class="n">mlflow</span><span class="o">.</span><span class="n">set_tracking_uri</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MLFLOW_TRACKING_URI</span><span class="p">)</span>
+<span class="linenos">317</span>
+<span class="linenos">318</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">319</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">320</span><span class="sd">        Runs when the service stops.</span>
+<span class="linenos">321</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">322</span>        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MlPytorchRegressionService stopped&quot;</span><span class="p">)</span>
+<span class="linenos">323</span>
+<span class="linenos">324</span>    <span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DemonstratorNeuralNet</span><span class="p">:</span>
+<span class="linenos">325</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">326</span><span class="sd">        create a model instance.</span>
+<span class="linenos">327</span>
+<span class="linenos">328</span><span class="sd">        Returns</span>
+<span class="linenos">329</span><span class="sd">        -------</span>
+<span class="linenos">330</span><span class="sd">        DemonstratorNeuralNet</span>
+<span class="linenos">331</span><span class="sd">            A model instance.</span>
+<span class="linenos">332</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">333</span>        <span class="k">return</span> <span class="n">DemonstratorNeuralNet</span><span class="p">(</span>
+<span class="linenos">334</span>            <span class="n">input_dim</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">335</span>            <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">336</span>            <span class="n">output_dim</span><span class="o">=</span><span class="mi">1</span>
+<span class="linenos">337</span>        <span class="p">)</span>
+<span class="linenos">338</span>
+<span class="linenos">339</span>    <span class="nd">@loop</span>
+<span class="linenos">340</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">training_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">341</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">342</span><span class="sd">        The training loop.</span>
+<span class="linenos">343</span><span class="sd">        Returns</span>
+<span class="linenos">344</span><span class="sd">        -------</span>
+<span class="linenos">345</span>
+<span class="linenos">346</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">347</span>        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_model</span><span class="p">()</span>
+<span class="linenos">348</span>        <span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">()</span>
+<span class="linenos">349</span>        <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+<span class="linenos">350</span>        <span class="n">dataset</span> <span class="o">=</span> <span class="n">PageDataset</span><span class="p">(</span><span class="n">fast_iot_service</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="linenos">351</span>
+<span class="linenos">352</span>        <span class="c1"># await self.train_model_without_experiment_tracking(dataset, model, loss_fn, optimizer)</span>
+<span class="linenos">353</span>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_model_with_mlflow_tracking</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">loss_fn</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">)</span>
+<span class="linenos">354</span>
+<span class="linenos">355</span>        <span class="k">return</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<span class="linenos">356</span>
+<span class="linenos">357</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">train_model_without_experiment_tracking</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">PageDataset</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">DemonstratorNeuralNet</span><span class="p">,</span>
+<span class="linenos">358</span>                                                      <span class="n">loss_fn</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">,</span>
+<span class="linenos">359</span>                                                      <span class="n">optimizer</span><span class="p">:</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">,</span> <span class="n">epochs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+<span class="linenos">360</span>                                                      <span class="n">shuffle</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="linenos">361</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">362</span><span class="sd">        Train the model without experiment tracking.</span>
+<span class="linenos">363</span>
+<span class="linenos">364</span><span class="sd">        Parameters</span>
+<span class="linenos">365</span><span class="sd">        ----------</span>
+<span class="linenos">366</span><span class="sd">        dataset</span>
+<span class="linenos">367</span><span class="sd">        model</span>
+<span class="linenos">368</span><span class="sd">        loss_fn</span>
+<span class="linenos">369</span><span class="sd">        optimizer</span>
+<span class="linenos">370</span><span class="sd">        epochs</span>
+<span class="linenos">371</span><span class="sd">        batch_size</span>
+<span class="linenos">372</span><span class="sd">        shuffle</span>
+<span class="linenos">373</span>
+<span class="linenos">374</span><span class="sd">        Returns</span>
+<span class="linenos">375</span><span class="sd">        -------</span>
+<span class="linenos">376</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">377</span>        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting training loop without experiment tracking.&quot;</span><span class="p">)</span>
+<span class="linenos">378</span>        <span class="k">await</span> <span class="n">dataset</span><span class="o">.</span><span class="n">init_dataset</span><span class="p">()</span>
+<span class="linenos">379</span>        <span class="n">progress</span> <span class="o">=</span> <span class="n">Progress</span><span class="p">()</span>
+<span class="linenos">380</span>        <span class="n">total_steps</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">num_pages</span> <span class="o">*</span> <span class="n">epochs</span>
+<span class="linenos">381</span>        <span class="n">task_id</span> <span class="o">=</span> <span class="n">progress</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="s2">&quot;[cyan]Training...&quot;</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">total_steps</span><span class="p">)</span>
+<span class="linenos">382</span>
+<span class="linenos">383</span>        <span class="k">with</span> <span class="n">progress</span><span class="p">:</span>
+<span class="linenos">384</span>            <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">num_pages</span><span class="p">):</span>
+<span class="linenos">385</span>                <span class="c1"># define pytorch data loader</span>
+<span class="linenos">386</span>                <span class="n">data_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="n">shuffle</span><span class="p">)</span>
+<span class="linenos">387</span>
+<span class="linenos">388</span>                <span class="c1"># define pytorch training loop</span>
+<span class="linenos">389</span>                <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+<span class="linenos">390</span>                    <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_loader</span><span class="p">):</span>
+<span class="linenos">391</span>                        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+<span class="linenos">392</span>                        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="linenos">393</span>                        <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+<span class="linenos">394</span>                        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+<span class="linenos">395</span>                        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+<span class="linenos">396</span>                        <span class="c1"># log.info(f&quot;page: {page}, epoch: {epoch}, batch_idx: {batch_idx}, loss: {loss.item()}&quot;)</span>
+<span class="linenos">397</span>                    <span class="n">progress</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">task_id</span><span class="p">,</span> <span class="n">advance</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos">398</span>
+<span class="linenos">399</span>                <span class="k">await</span> <span class="n">dataset</span><span class="o">.</span><span class="n">load_next_page</span><span class="p">()</span>
+<span class="linenos">400</span>
+<span class="linenos">401</span>        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Training loop without experiment tracking completed.&quot;</span><span class="p">)</span>
+<span class="linenos">402</span>        <span class="c1"># save model</span>
+<span class="linenos">403</span>        <span class="c1"># here you can implement a saving mechanism for the model</span>
+<span class="linenos">404</span>
+<span class="linenos">405</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">train_model_with_mlflow_tracking</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">PageDataset</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">DemonstratorNeuralNet</span><span class="p">,</span>
+<span class="linenos">406</span>                                               <span class="n">loss_fn</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">:</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">,</span> <span class="n">epochs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+<span class="linenos">407</span>                                               <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="linenos">408</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">409</span><span class="sd">        Train the model with mlflow tracking.</span>
+<span class="linenos">410</span>
+<span class="linenos">411</span><span class="sd">        Parameters</span>
+<span class="linenos">412</span><span class="sd">        ----------</span>
+<span class="linenos">413</span><span class="sd">        dataset</span>
+<span class="linenos">414</span><span class="sd">        model</span>
+<span class="linenos">415</span><span class="sd">        loss_fn</span>
+<span class="linenos">416</span><span class="sd">        optimizer</span>
+<span class="linenos">417</span><span class="sd">        epochs</span>
+<span class="linenos">418</span><span class="sd">        batch_size</span>
+<span class="linenos">419</span><span class="sd">        shuffle</span>
+<span class="linenos">420</span>
+<span class="linenos">421</span><span class="sd">        Returns</span>
+<span class="linenos">422</span><span class="sd">        -------</span>
+<span class="linenos">423</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">424</span>        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting training loop with wandb tracking.&quot;</span><span class="p">)</span>
+<span class="linenos">425</span>        <span class="k">await</span> <span class="n">dataset</span><span class="o">.</span><span class="n">init_dataset</span><span class="p">()</span>
+<span class="linenos">426</span>        <span class="n">progress</span> <span class="o">=</span> <span class="n">Progress</span><span class="p">()</span>
+<span class="linenos">427</span>        <span class="n">total_steps</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">num_pages</span> <span class="o">*</span> <span class="n">epochs</span>
+<span class="linenos">428</span>        <span class="n">task_id</span> <span class="o">=</span> <span class="n">progress</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="s2">&quot;[cyan]Training&quot;</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">total_steps</span><span class="p">)</span>
+<span class="linenos">429</span>
+<span class="linenos">430</span>        <span class="k">with</span> <span class="n">mlflow</span><span class="o">.</span><span class="n">start_run</span><span class="p">()</span> <span class="k">as</span> <span class="n">run</span><span class="p">:</span>
+<span class="linenos">431</span>
+<span class="linenos">432</span>            <span class="k">with</span> <span class="n">progress</span><span class="p">:</span>
+<span class="linenos">433</span>                <span class="n">optimizer_step</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">434</span>                <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">num_pages</span><span class="p">):</span>
+<span class="linenos">435</span>                    <span class="c1"># define pytorch data loader</span>
+<span class="linenos">436</span>                    <span class="n">data_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="n">shuffle</span><span class="p">)</span>
+<span class="linenos">437</span>
+<span class="linenos">438</span>                    <span class="c1"># define pytorch training loop</span>
+<span class="linenos">439</span>                    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+<span class="linenos">440</span>                        <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_loader</span><span class="p">):</span>
+<span class="linenos">441</span>                            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+<span class="linenos">442</span>                            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="linenos">443</span>                            <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+<span class="linenos">444</span>                            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+<span class="linenos">445</span>                            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+<span class="linenos">446</span>                            <span class="c1"># Log metrics with wandb</span>
+<span class="linenos">447</span>                            <span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos">448</span>                                <span class="s2">&quot;loss&quot;</span><span class="p">:</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span>
+<span class="linenos">449</span>                                <span class="s2">&quot;epoch&quot;</span><span class="p">:</span> <span class="n">epoch</span><span class="p">,</span>
+<span class="linenos">450</span>                                <span class="s2">&quot;page&quot;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span>
+<span class="linenos">451</span>                                <span class="s2">&quot;optimizer_step&quot;</span><span class="p">:</span> <span class="n">optimizer_step</span>
+<span class="linenos">452</span>                            <span class="p">}</span>
+<span class="linenos">453</span>                            <span class="n">mlflow</span><span class="o">.</span><span class="n">log_metrics</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">optimizer_step</span><span class="p">)</span>
+<span class="linenos">454</span>                            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;page: </span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s2">, epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">, batch_idx: </span><span class="si">{</span><span class="n">batch_idx</span><span class="si">}</span><span class="s2">, loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">455</span>
+<span class="linenos">456</span>                            <span class="n">optimizer_step</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">457</span>                        <span class="n">progress</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">task_id</span><span class="p">,</span> <span class="n">advance</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="p">)</span>
+<span class="linenos">458</span>
+<span class="linenos">459</span>                    <span class="k">await</span> <span class="n">dataset</span><span class="o">.</span><span class="n">load_next_page</span><span class="p">()</span>
+<span class="linenos">460</span>
+<span class="linenos">461</span>            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Training loop with wandb tracking completed.&quot;</span><span class="p">)</span>
+<span class="linenos">462</span>
+<span class="linenos">463</span>            <span class="n">mlflow</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">log_model</span><span class="p">(</span><span class="n">pytorch_model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">artifact_path</span><span class="o">=</span><span class="s2">&quot;model&quot;</span><span class="p">)</span>
+<span class="linenos">464</span>
+<span class="linenos">465</span>            <span class="n">model_uri</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;runs:/</span><span class="si">{</span><span class="n">run</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">run_id</span><span class="si">}</span><span class="s2">/model&quot;</span>
+<span class="linenos">466</span>            <span class="n">model_details</span> <span class="o">=</span> <span class="n">mlflow</span><span class="o">.</span><span class="n">register_model</span><span class="p">(</span><span class="n">model_uri</span><span class="o">=</span><span class="n">model_uri</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;MyModel&quot;</span><span class="p">)</span>
+<span class="linenos">467</span>            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;registered model in mlfow model regestry. Details: </span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">pprint</span><span class="o">.</span><span class="n">pformat</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">model_details</span><span class="p">))</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">468</span>
+<span class="linenos">469</span>
+<span class="linenos">470</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos">471</span>    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+<span class="linenos">472</span>    <span class="n">MlPytorchRegressionMlflowService</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024, WZL IQS Aachen
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">ML Training Blueprints</a><ul>
+<li><a class="reference internal" href="#what-are-ml-training-blueprints">What are ML Training Blueprints?</a></li>
+<li><a class="reference internal" href="#our-ml-training-blueprints">Our ML Training Blueprints</a></li>
+<li><a class="reference internal" href="#pytorch-regression-blueprint-wandb">Pytorch Regression Blueprint (WandB)</a></li>
+<li><a class="reference internal" href="#pytorch-regression-blueprint-mlflow">Pytorch Regression Blueprint (MLflow)</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/furo.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>

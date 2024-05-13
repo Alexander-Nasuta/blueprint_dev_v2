@@ -13,6 +13,18 @@ from blueprint_dev_v2.ml_lifecycle_utils.ml_lifecycle_subjects_name import _SAVE
 
 
 def ok_response_thing(payload: dict | list, fiot_service: FastIoTService) -> Thing:
+    """
+    Creates a Thing object with the payload and the name of the service that created it.
+
+    :param payload: The payload to be sent.
+    :type payload: dict | list
+
+    :param fiot_service: The service that created the payload.
+    :type fiot_service: FastIoTService
+
+    :return: A Thing object with the payload and the name of the service that created it.
+    :rtype: Thing
+    """
     return Thing(
         machine=f'{fiot_service.__class__.__name__}',
         name="",
