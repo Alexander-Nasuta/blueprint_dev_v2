@@ -4,30 +4,318 @@
 #
 #    pip-compile pyproject.toml
 #
+absl-py==2.1.0
+    # via
+    #   keras
+    #   tensorboard
+    #   tensorflow-intel
+alembic==1.13.1
+    # via mlflow
+aniso8601==9.0.1
+    # via graphene
+astunparse==1.6.3
+    # via tensorflow-intel
+blinker==1.8.2
+    # via flask
 build==1.2.1
     # via pip-tools
+certifi==2024.2.2
+    # via
+    #   requests
+    #   sentry-sdk
+charset-normalizer==3.3.2
+    # via requests
 click==8.1.7
-    # via pip-tools
+    # via
+    #   flask
+    #   mlflow
+    #   pip-tools
+    #   wandb
+cloudpickle==3.0.0
+    # via mlflow
+colorama==0.4.6
+    # via
+    #   build
+    #   click
+contourpy==1.2.1
+    # via matplotlib
+cycler==0.12.1
+    # via matplotlib
+dnspython==2.6.1
+    # via pymongo
+docker==7.0.0
+    # via mlflow
+docker-pycreds==0.4.0
+    # via wandb
+entrypoints==0.4
+    # via mlflow
 fastiot==1.1
     # via blueprint_dev_v2 (pyproject.toml)
+filelock==3.14.0
+    # via torch
+flask==3.0.3
+    # via mlflow
+flatbuffers==24.3.25
+    # via tensorflow-intel
+fonttools==4.51.0
+    # via matplotlib
+fsspec==2024.3.1
+    # via torch
+gast==0.5.4
+    # via tensorflow-intel
+gitdb==4.0.11
+    # via gitpython
+gitpython==3.1.43
+    # via
+    #   mlflow
+    #   wandb
+google-pasta==0.2.0
+    # via tensorflow-intel
+graphene==3.3
+    # via mlflow
+graphql-core==3.2.3
+    # via
+    #   graphene
+    #   graphql-relay
+graphql-relay==3.2.0
+    # via graphene
+greenlet==3.0.3
+    # via sqlalchemy
+grpcio==1.63.0
+    # via
+    #   tensorboard
+    #   tensorflow-intel
+h5py==3.11.0
+    # via
+    #   keras
+    #   tensorflow-intel
+idna==3.7
+    # via requests
+importlib-metadata==7.1.0
+    # via mlflow
+intel-openmp==2021.4.0
+    # via mkl
+itsdangerous==2.2.0
+    # via flask
+jinja2==3.1.4
+    # via
+    #   flask
+    #   mlflow
+    #   torch
+joblib==1.4.2
+    # via scikit-learn
+keras==3.3.3
+    # via
+    #   blueprint_dev_v2 (pyproject.toml)
+    #   tensorflow-intel
+kiwisolver==1.4.5
+    # via matplotlib
+libclang==18.1.1
+    # via tensorflow-intel
+lightgbm==4.3.0
+    # via blueprint_dev_v2 (pyproject.toml)
+mako==1.3.4
+    # via alembic
+markdown==3.6
+    # via
+    #   mlflow
+    #   tensorboard
+markdown-it-py==3.0.0
+    # via rich
+markupsafe==2.1.5
+    # via
+    #   jinja2
+    #   mako
+    #   werkzeug
+matplotlib==3.8.4
+    # via mlflow
+mdurl==0.1.2
+    # via markdown-it-py
+mkl==2021.4.0
+    # via torch
+ml-dtypes==0.3.2
+    # via
+    #   keras
+    #   tensorflow-intel
+mlflow==2.12.2
+    # via blueprint_dev_v2 (pyproject.toml)
+mpmath==1.3.0
+    # via sympy
 msgpack==1.0.8
     # via fastiot
+namex==0.0.8
+    # via keras
 nats-py==2.7.2
     # via fastiot
+networkx==3.3
+    # via torch
+numpy==1.26.4
+    # via
+    #   blueprint_dev_v2 (pyproject.toml)
+    #   contourpy
+    #   h5py
+    #   keras
+    #   lightgbm
+    #   matplotlib
+    #   ml-dtypes
+    #   mlflow
+    #   opt-einsum
+    #   pandas
+    #   pyarrow
+    #   scikit-learn
+    #   scipy
+    #   tensorboard
+    #   tensorflow-intel
+opt-einsum==3.3.0
+    # via tensorflow-intel
+optree==0.11.0
+    # via keras
 packaging==24.0
-    # via build
+    # via
+    #   build
+    #   docker
+    #   matplotlib
+    #   mlflow
+    #   tensorflow-intel
+pandas==2.2.2
+    # via
+    #   blueprint_dev_v2 (pyproject.toml)
+    #   mlflow
+pillow==10.3.0
+    # via matplotlib
 pip-tools==6.14.0
     # via blueprint_dev_v2 (pyproject.toml)
+platformdirs==4.2.1
+    # via wandb
+protobuf==4.25.3
+    # via
+    #   mlflow
+    #   tensorboard
+    #   tensorflow-intel
+    #   wandb
+psutil==5.9.8
+    # via wandb
+pyarrow==15.0.2
+    # via mlflow
 pydantic==1.10.15
     # via fastiot
+pygments==2.18.0
+    # via rich
+pymongo==4.7.2
+    # via blueprint_dev_v2 (pyproject.toml)
+pyparsing==3.1.2
+    # via matplotlib
 pyproject-hooks==1.1.0
     # via build
+python-dateutil==2.9.0.post0
+    # via
+    #   matplotlib
+    #   pandas
+pytz==2024.1
+    # via
+    #   mlflow
+    #   pandas
+pywin32==306
+    # via docker
 pyyaml==6.0.1
-    # via fastiot
+    # via
+    #   fastiot
+    #   mlflow
+    #   wandb
+querystring-parser==1.2.4
+    # via mlflow
+requests==2.31.0
+    # via
+    #   docker
+    #   mlflow
+    #   tensorflow-intel
+    #   wandb
+rich==13.7.1
+    # via
+    #   blueprint_dev_v2 (pyproject.toml)
+    #   keras
+scikit-learn==1.4.2
+    # via
+    #   blueprint_dev_v2 (pyproject.toml)
+    #   mlflow
+scipy==1.13.0
+    # via
+    #   lightgbm
+    #   mlflow
+    #   scikit-learn
+sentry-sdk==2.1.1
+    # via wandb
+setproctitle==1.3.3
+    # via wandb
+six==1.16.0
+    # via
+    #   astunparse
+    #   docker-pycreds
+    #   google-pasta
+    #   python-dateutil
+    #   querystring-parser
+    #   tensorboard
+    #   tensorflow-intel
+smmap==5.0.1
+    # via gitdb
+sqlalchemy==2.0.30
+    # via
+    #   alembic
+    #   blueprint_dev_v2 (pyproject.toml)
+    #   mlflow
+sqlparse==0.5.0
+    # via mlflow
+sympy==1.12
+    # via torch
+tbb==2021.12.0
+    # via mkl
+tensorboard==2.16.2
+    # via tensorflow-intel
+tensorboard-data-server==0.7.2
+    # via tensorboard
+tensorflow==2.16.1
+    # via blueprint_dev_v2 (pyproject.toml)
+tensorflow-intel==2.16.1
+    # via tensorflow
+tensorflow-io-gcs-filesystem==0.31.0
+    # via tensorflow-intel
+termcolor==2.4.0
+    # via tensorflow-intel
+threadpoolctl==3.5.0
+    # via scikit-learn
+torch==2.3.0
+    # via blueprint_dev_v2 (pyproject.toml)
 typing-extensions==4.11.0
-    # via pydantic
+    # via
+    #   alembic
+    #   optree
+    #   pydantic
+    #   sqlalchemy
+    #   tensorflow-intel
+    #   torch
+tzdata==2024.1
+    # via pandas
+urllib3==2.2.1
+    # via
+    #   docker
+    #   requests
+    #   sentry-sdk
+waitress==3.0.0
+    # via mlflow
+wandb==0.17.0
+    # via blueprint_dev_v2 (pyproject.toml)
+werkzeug==3.0.3
+    # via
+    #   flask
+    #   tensorboard
 wheel==0.43.0
-    # via pip-tools
+    # via
+    #   astunparse
+    #   pip-tools
+wrapt==1.16.0
+    # via tensorflow-intel
+zipp==3.18.1
+    # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip

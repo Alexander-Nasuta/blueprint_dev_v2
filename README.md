@@ -24,6 +24,28 @@ FastIoT ist a micro-service-architecture and uses a [Nats](https://nats.io/) as 
 This architecture which introduces some peculiarities in the implementation of Machine-Learning use-cases, especially when it comes to the training of models.
 The Blueprints in this repository are designed to provide Blueprints as code templates to speed up the development of Machine-Learning use-cases with FastIoT, especially for transferring and preprocessing data, training, storing and serving the models. 
 
+## Available Blueprints
+
+![Blueprints](resources/readme-assets/Blueprint-concept.png)
+
+in the picture above you can see the concept of the Blueprints for Machine Learning. 
+The Blueprints are divided into three main parts:
+
+#### Database-Service
+This service is responsible for storing the data and providing it to the other services. 
+It is an abstraction layer between the data and the services that need it. 
+This service is responsible for storing the data and providing it to the other services. 
+It is an abstraction layer between the data and the services that need it. 
+Putting all the DB interactions in one service enables to implement drop in replacements for different databases.
+So the end user can choose between different databases without changing the other services.
+
+#### Data-Procesing-Service
+This service is responsible for processing the data.
+Todo: detailed description
+#### Model-Training-Service & Model-Serving-Service
+These services are responsible for training the model and serving it.
+Todo: detailed description
+
 ## Quickstart
 
 ### Pre-Requisites
@@ -31,6 +53,17 @@ The Blueprints in this repository are designed to provide Blueprints as code tem
 - Python 3.9 or higher installed (in general it's recommended to use a environment manager like [conda](https://docs.anaconda.com/free/anaconda/install/windows/) or [venv](https://docs.python.org/3/library/venv.html))
 - Docker installed (for example by installing [Docker Desktop](https://www.docker.com/products/docker-desktop/))
 - A running Database (for example [MariaDB](https://mariadb.org/) or [MongoDB](https://www.mongodb.com/))
+
+### Development Setup
+NOTE: to run database services you need to have a running database service (for example MariaDB or MongoDB) you need to provide some environment variables, that are used to connect to the database. 
+NOTE: MongoDB needs to have a username and password set up, even if your MongoDB instance does not require authentication.
+
+1. Clone this repository
+2. If working with PyCharm you have to Mark the generated src directory as “Sources Root”.
+3. Install the required dependencies with `pip install -r requirements.txt`
+4. Run `fiot build` 
+5. Run `fiot integration_tets`
+6. Start the individual services with by running the run.py files in the respective directories (for example `python src/database_mongo/run.py <<your enviorment vasriables>>`)
 
 ## Roadmap
 
