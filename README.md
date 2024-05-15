@@ -63,7 +63,7 @@ NOTE: MongoDB needs to have a username and password set up, even if your MongoDB
 3. Install the required dependencies with `pip install -r requirements.txt`
 4. Run `mlflow server --host 127.0.0.1 --port 8080`
 5. Run `fiot build` 
-6. Run `fiot integration_tets`
+6. Run `fiot integration_test`
 7. Start the individual services with by running the run.py files in the respective directories (for example `python src/database_mongo/run.py <<your enviorment vasriables>>`)
 
 ## Roadmap
