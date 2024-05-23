@@ -17,7 +17,7 @@ description = ""
 readme = "README.md"
 requires-python = "~=3.11"
 dependencies = [
-    "fastiot>=1.0,<2",
+    "fastiot[dev]>=1.0,<2",
     "pip-tools>=6.4,<7",
     "torch>=2.0,<3",
     "pandas",
