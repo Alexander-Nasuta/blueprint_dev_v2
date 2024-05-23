@@ -29,8 +29,7 @@ dependencies = [
     "scikit-learn",
     "rich",
     "pymongo",
-    "sqlalchemy",
-    "lightgbm",
+    "PyMySQL",
 ]
 
 # will be changed automatically
