@@ -45,7 +45,7 @@ class MlServingMlflowService(FastIoTService):
         Serve predictions for raw data points.
     """
 
-    MODEL_URI = "models:/MyModel/latest"
+    MODEL_URI = "models:/MyModel/1"
     MLFLOW_TRACKING_URI = "http://127.0.0.1:8080"
 
     _regression_model = None
