@@ -117,7 +117,7 @@ class FillNaNWithMean(BaseEstimator, TransformerMixin):
         -------
         pd.DataFrame
         """
-        x[self.target].fillna(x[self.target].mean(), inplace=True)
+        x[self.target] = x[self.target].fillna(x[self.target].mean())
         return x
 
 
@@ -154,7 +154,7 @@ class FillNaNWithMedian(BaseEstimator, TransformerMixin):
         -------
         pd.DataFrame
         """
-        x[self.target].fillna(x[self.target].median(), inplace=True)
+        x[self.target] = x[self.target].fillna(x[self.target].median())
         return x
 
 
@@ -200,5 +200,5 @@ class FillNaNWithValue(BaseEstimator, TransformerMixin):
         -------
         pd.DataFrame
         """
-        x[self.target].fillna(self.value, inplace=True)
+        x[self.target] = x[self.target].fillna(self.value)
         return x
