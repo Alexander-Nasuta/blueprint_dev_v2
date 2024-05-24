@@ -45,7 +45,7 @@ class MlServingMlflowService(FastIoTService):
         Serve predictions for raw data points.
     """
 
-    MODEL_URI = "models:/MyModel/7"
+    MODEL_URI = "models:/MyModel/latest"
     MLFLOW_TRACKING_URI = "http://127.0.0.1:8080"
 
     _regression_model = None
@@ -140,12 +140,13 @@ class MlServingMlflowService(FastIoTService):
         if self._regression_model is None:
             raise ValueError("Regression model not initialized. Please call _setup_model() first.")
 
+        log.info(f"Integration test: getting a processed data point from Data Processing Service and performing a prediction.")
         processed_data = await self._process_raw_data_points(data=raw_datapoints)
         temp = pd.DataFrame(processed_data)
         _ = np.array([temp.pop("aufbereiteter_wert")])
         x_data = temp.to_numpy()
-
         prediction = self._regression_model(torch.tensor(x_data, dtype=torch.float32))
+        log.info(f"Integration test passed.")
         return prediction.tolist()
 
     @reply(ML_SERVING_SUBJECT)
