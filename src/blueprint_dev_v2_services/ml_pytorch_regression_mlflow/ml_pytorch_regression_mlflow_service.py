@@ -421,7 +421,7 @@ class MlPytorchRegressionMlflowService(FastIoTService):
         Returns
         -------
         """
-        log.info("Starting training loop with wandb tracking.")
+        log.info("Starting training loop with mlfow tracking.")
         await dataset.init_dataset()
         progress = Progress()
         total_steps = dataset.num_pages * epochs
@@ -458,7 +458,7 @@ class MlPytorchRegressionMlflowService(FastIoTService):
 
                     await dataset.load_next_page()
 
-            log.info("Training loop with wandb tracking completed.")
+            log.info("Training loop with mlflow tracking completed.")
 
             mlflow.pytorch.log_model(pytorch_model=model, artifact_path="model")
 
