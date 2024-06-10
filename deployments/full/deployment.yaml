@@ -26,5 +26,6 @@ services:
   ml_pytorch_regression_mlflow: null
   ml_serving: null
   ml_serving_mlflow: null
+  ml_tensorflow_regression_mlflow: null
 tag: ''
 version: 1

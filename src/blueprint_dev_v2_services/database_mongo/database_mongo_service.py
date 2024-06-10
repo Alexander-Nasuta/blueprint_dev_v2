@@ -1,10 +1,11 @@
 import logging
 import uuid
+import os
 
 from fastiot.core import FastIoTService, reply
 from fastiot.db.mongodb_helper_fn import get_mongodb_client_from_env
 from fastiot.msg.thing import Thing
-from pymongo import UpdateOne
+from pymongo import UpdateOne, MongoClient
 from pymongo.results import InsertManyResult, BulkWriteResult
 
 from blueprint_dev_v2.ml_lifecycle_utils.ml_lifecycle_broker_facade import ok_response_thing, error_response_thing
@@ -37,6 +38,15 @@ class DatabaseMongoService(FastIoTService):
             The name of the MongoDB collection for processed data.
         _mongodb_client : MongoClient
             The MongoDB client.
+        _db_username : str
+            From environment variables inferred username, used to construct the connection string.
+        _db_password : str
+            From environment variables inferred password for the according user, used to
+            construct the connection string.
+        _db_port : str
+            From environment variables inferred port, used to construct the connection string.
+        _db_host : str
+            From environment variables inferred host, used to construct the connection string.
         _db : Database
             The MongoDB database.
         _raw_data_collection : Collection
@@ -75,7 +85,12 @@ class DatabaseMongoService(FastIoTService):
              keyword arguments that are passed to the FastIoTService constructor.
         """
         super().__init__(**kwargs)
-        self._mongodb_client = get_mongodb_client_from_env()
+        self._db_username = os.environ.get("FASTIOT_MONGO_DB_USERNAME")
+        self._db_password = os.environ.get("FASTIOT_MONGO_DB_PASSWORD")
+        self._db_port = os.environ.get("FASTIOT_MONGO_DB_PORT")
+        self._db_host = os.environ.get("FASTIOT_MONGO_DB_HOST")
+        connection_string = f"mongodb://{self._db_username}:{self._db_password}@{self._db_host}:{self._db_port}/?authMechanism=SCRAM-SHA-1"
+        self._mongodb_client = MongoClient(connection_string)
         self._db = self._mongodb_client[self._MONGO_DB]
 
         self._raw_data_collection = self._db[self._MONGO_RAW_DATA_COLLECTION]
