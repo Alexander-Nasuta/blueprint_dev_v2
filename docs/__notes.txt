@@ -1,0 +1,22 @@
+sphinx-autobuild docs docs/_build/html
+
+<!--
+```{important}
+To get started, check out {doc}`quickstart`.
+```
+
+```{important}
+Read Intro in {ref}`Installation`.
+```
+
+
+```{warning}
+This library is still under development.
+```
+
+```{note}
+this is a note
+```
+-->
+
+<!-- notebooks/tutorial -->

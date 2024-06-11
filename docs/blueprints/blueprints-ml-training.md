@@ -1,14 +1,6 @@
 # ML Training Blueprints
 
-This document provides an overview of the ML training blueprints used in our project.
-
 ## What are ML Training Blueprints?
-
-Here, you can provide a high-level description of what ML training blueprints are and how they are used in your project.
-
-## Our ML Training Blueprints
-
-In this section, you can provide a list of the ML training blueprints used in your project and a brief description of what each one does.
 
 ## Pytorch Regression Blueprint (WandB)
 
@@ -25,8 +17,6 @@ In this section, you can provide a list of the ML training blueprints used in yo
 :language: python
 :linenos: true
 ```
-
-Here, you can provide instructions or guidelines on how to use the ML training blueprints in your project.
 
 ## Pytorch Regression Blueprint (MLflow)
 
