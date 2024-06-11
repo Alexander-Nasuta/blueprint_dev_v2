@@ -4,6 +4,10 @@
 
 ## Pytorch Regression Blueprint (WandB)
 
+```{note}
+WandB support might be removed in the future in favor of MLflow.
+```
+
 ```{index} triple: Pytorch; Regression; WandB;
 ```
 

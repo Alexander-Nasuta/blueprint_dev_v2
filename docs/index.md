@@ -3,10 +3,10 @@
 % You can adapt this file completely to your liking, but it should at least
 % contain the root `toctree` directive.
 
-# Welcome to KiOptiPack BluePrints!
+% # Welcome to KiOptiPack BluePrints!
 
-This is the documentation for the KiOptiPack BluePrints project.
-The goal of Blueprints is provide a starting point for developers to quickly implement Machine-Learning use-cases with FastIoT.
+% This is the documentation for the KiOptiPack BluePrints project.
+% The goal of Blueprints is provide a starting point for developers to quickly implement Machine-Learning use-cases with FastIoT.
 
 
 ```{important}
@@ -24,7 +24,7 @@ FastIoT is developed to run on linux. MacOS seems to work as well. Windows might
 
 quickstart
 blueprints/blueprints
-code-docs/code-documentation
+% code-docs/code-documentation
 genindex
 ```
 

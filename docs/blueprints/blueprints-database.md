@@ -1,7 +1,5 @@
 # Database Blueprints
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
 ## What are Database Blueprints?
 
 This service is responsible for storing the data and providing it to the other services. It is an abstraction layer between the data and the services that need it. This service is responsible for storing the data and providing it to the other services. It is an abstraction layer between the data and the services that need it. Putting all the DB interactions in one service enables to implement drop in replacements for different databases. 
@@ -29,9 +27,13 @@ Provide the following enviorment variables when starting the service:
  - `FASTIOT_MONGO_DB_PASSWORD`
  - `FASTIOT_MONGO_DB_HOST`
  - `FASTIOT_MONGO_DB_PORT`
-```
+
 
 When using PyCharm, you can set the environment variables in the run configuration (accessible via the dropdown menu of the green play button).
+Here is a screenshot of an example configuration:
+
+![Mongo example env config](../_static/mongo_env.png)
+```
 
 
 
@@ -41,6 +43,19 @@ When using PyCharm, you can set the environment variables in the run configurati
 ```
 
 ## MariaDB Database Blueprint
+
+```{note}
+Provide the following enviorment variables when starting the service:
+ - `FASTIOT_MARIA_DB_USER` 
+ - `FASTIOT_MARIA_DB_PASSWORD`
+ - `FASTIOT_MARIA_DB_HOST`
+ - `FASTIOT_MARIA_DB_PORT`
+
+When using PyCharm, you can set the environment variables in the run configuration (accessible via the dropdown menu of the green play button).
+Here is a screenshot of an example configuration:
+
+![Mongo example env config](../_static/maria_env.png)
+```
 
 ```{index} pair: Database; MariaDB;
 ```
