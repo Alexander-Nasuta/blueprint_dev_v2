@@ -270,6 +270,8 @@ Todo: detailed description</p>
 </section>
 <section id="development-setup">
 <h3>Development Setup<a class="headerlink" href="#development-setup" title="Permalink to this heading">#</a></h3>
+<p>The initial setup of the project is shown in the following video:</p>
+<p><a class="reference external" href="http://www.youtube.com/watch?v=WxKDhfsslRw" title="Project Setup"><img alt="Project Setup" src="http://img.youtube.com/vi/WxKDhfsslRw/0.jpg" /></a></p>
 <p>NOTE: to run database services you need to have a running database service (for example MariaDB or MongoDB) you need to provide some environment variables, that are used to connect to the database.
 NOTE: MongoDB needs to have a username and password set up, even if your MongoDB instance does not require authentication.</p>
 <ol class="arabic simple">
@@ -277,10 +279,13 @@ NOTE: MongoDB needs to have a username and password set up, even if your MongoDB
 <li><p>If working with PyCharm you have to Mark the generated src directory as “Sources Root”.</p></li>
 <li><p>Install the required dependencies with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code></p></li>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">mlflow</span> <span class="pre">server</span> <span class="pre">--host</span> <span class="pre">127.0.0.1</span> <span class="pre">--port</span> <span class="pre">8080</span></code></p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">fiot</span> <span class="pre">build</span></code></p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">fiot</span> <span class="pre">config</span></code></p></li>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">fiot</span> <span class="pre">integration_test</span></code></p></li>
 <li><p>Start the individual services with by running the run.py files in the respective directories (for example <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">src/database_mongo/run.py</span> <span class="pre">&lt;&lt;your</span> <span class="pre">enviorment</span> <span class="pre">vasriables&gt;&gt;</span></code>)</p></li>
 </ol>
+<p>here are screenshots of an example configuration for the environment variables in PyCharm:</p>
+<p><img alt="Mongo example env config" src="_images/mongo_env1.png" />
+<img alt="Maria example env config" src="_images/maria_env1.png" /></p>
 </section>
 </section>
 <section id="roadmap">

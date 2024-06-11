@@ -170,14 +170,6 @@
 <li class="toctree-l2"><a class="reference internal" href="blueprints-ml-consuming.html">ML Consuming Blueprints</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../code-docs/code-documentation.html">Code Documentation</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Code Documentation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../code-docs/data-processing-utils.html">Data Processing Utilities</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Data Processing Utilities</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../code-docs/data-processing-utils-data-cleaning.html">Data Cleaning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../code-docs/data-processing-utils-feature-engineering.html">Feature Engineering</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
 </ul>
 
@@ -217,6 +209,11 @@
 <h1>ML Training Blueprints<a class="headerlink" href="#ml-training-blueprints" title="Permalink to this heading">#</a></h1>
 <section id="what-are-ml-training-blueprints">
 <h2>What are ML Training Blueprints?<a class="headerlink" href="#what-are-ml-training-blueprints" title="Permalink to this heading">#</a></h2>
+<p>ML Training Blueprints are templates for training a ML model in a microservice architecture via the FastIoT framework.
+Each blueprint is designed to be an example how to train a specific model type and framework (like for example a regression model in pytorch or a classifier in LightGBM).
+Most frameworks have some peculiarities when it comes loading data.
+ML Training Blueprints are designed to showcase how one can implement data loading, preprocessing in a microservice architecture.
+It also showcases how to train a model and store it in a model repository.</p>
 </section>
 <section id="pytorch-regression-blueprint-wandb">
 <h2>Pytorch Regression Blueprint (WandB)<a class="headerlink" href="#pytorch-regression-blueprint-wandb" title="Permalink to this heading">#</a></h2>
@@ -664,6 +661,10 @@
 </section>
 <section id="pytorch-regression-blueprint-mlflow">
 <h2>Pytorch Regression Blueprint (MLflow)<a class="headerlink" href="#pytorch-regression-blueprint-mlflow" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure to have the MLflow server running before starting the service.</p>
+</div>
 <span class="index-entry">Pytorch</span>
 <span class="index-entry">Regression</span>
 <span class="index-entry">MLflow</span><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="sd">&quot;&quot;&quot;</span>
