@@ -21,6 +21,7 @@ services:
   database_mongo: null
   dummy_data_generation: null
   ml_consumer: null
+  ml_lightgbm_regression_mlflow: null
   ml_monitoring: null
   ml_pytorch_regression: null
   ml_pytorch_regression_mlflow: null
