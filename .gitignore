@@ -5,6 +5,7 @@ docs/source/api/
 docs/build/*
 docs/_build/*
 build/
+**/*.egg-info/
 __pycache__/
 .docker-cache/
 .pytest_cache
