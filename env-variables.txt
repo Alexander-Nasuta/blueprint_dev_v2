@@ -1,0 +1,57 @@
+sphinx-build ./docs/ ./docs/_build/html
+
+ docs % mlflow server --host 127.0.0.1 --port 8080
+
+maria
+
+PYTHONUNBUFFERED=1;FASTIOT_MARIA_DB_HOST=localhost;FASTIOT_MARIA_DB_PASSWORD=fiotdev123;FASTIOT_MARIA_DB_PORT=3306;FASTIOT_MARIA_DB_USER=fiot
+
+
+mongo
+
+PYTHONUNBUFFERED=1;FASTIOT_MONGO_DB_HOST=localhost;FASTIOT_MONGO_DB_PORT=27017;FASTIOT_MONGO_DB_USER=fiot;FASTIOT_MONGO_DB_PASSWORD=fiotdev123
+
+
+{'aufbereiteter_wert': 0.3428564565754801,
+ 'laborant_AN': 1.0,
+ 'laborant_HANS': 0.0,
+ 'laborant_SO': 0.0,
+ 'laborant_TK': 0.0,
+ 'material_id_00000000': 0.0,
+ 'material_id_00000000-0000-0000-0000-000000000000': 0.0,
+ 'material_id_11111111': 0.0,
+ 'material_id_11111111-1111-1111-1111-111111111111': 0.0,
+ 'material_id_22222222': 1.0,
+ 'material_id_22222222-2222-2222-2222-222222222222': 0.0,
+ 'material_id_33333333': 0.0,
+ 'material_id_33333333-3333-3333-3333-333333333333': 0.0,
+ 'rohwert_1_high': 0.0,
+ 'rohwert_1_low': 0.0,
+ 'rohwert_1_medium': 1.0,
+ 'rohwert_1_very_high': 0.0,
+ 'rohwert_1_very_low': 0.0,
+ 'rohwert_2_labormessung': 0.7952293800891307,
+ 'rohwert_3_labormessung': -0.3980400635953826}
+
+
+ {'aufbereiteter_wert': 0.287696,
+ 'laborant_AN': 0.0,
+ 'laborant_HANS': 0.0,
+ 'laborant_SO': 0.0,
+ 'laborant_TK': 1.0,
+ 'material_id_00000000': 0.0,
+ 'material_id_11111111': 1.0,
+ 'material_id_22222222': 0.0,
+ 'material_id_33333333': 0.0,
+ 'rohwert_1_high': 0.0,
+ 'rohwert_1_low': 0.0,
+ 'rohwert_1_medium': 0.0,
+ 'rohwert_1_very_high': 1.0,
+ 'rohwert_1_very_low': 0.0,
+ 'rohwert_2_labormessung': 0.55194,
+ 'rohwert_3_labormessung': -0.472279}
+
+
+
+
+
