@@ -1,5 +1,10 @@
 # ML Training Blueprints
 
+```{Note}
+Tensorflow and LightGBM Blueprints are developed and can be accessed in the corresponding branches.
+They will not be mereged into the main branch until the the release of FastIOT 2.0.
+```
+
 ## What are ML Training Blueprints?
 
 ML Training Blueprints are templates for training a ML model in a microservice architecture via the FastIoT framework.

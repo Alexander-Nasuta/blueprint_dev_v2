@@ -86,22 +86,26 @@ here are screenshots of an example configuration for the environment variables i
 - [x] MongoDB-Integration for ML-Data-Storage
 - [x] MariaDB-Integration for ML-Data-Storage
 - [x] Blueprint for Pytorch-Model-Training
+- [x] Blueprint for Tensorflow-Model-Training
+- [x] Blueprint for LightGBM-Model-Training
+
 
 ### In Progress
-
-- [ ] Blueprint for Tensorflow-Model-Training
-- [ ] Blueprint for LightGBM-Model-Training
+- [ ] Updating to the FastIOT 2.0 Data-Model
+- [ ] Documentation for Blueprint for Tensorflow-Model-Training
+- [ ] Documentation for Blueprint for LightGBM-Model-Training
+- [ ] Blueprint for Federated Learning
 
 ### Planned
 
 - [ ] AutoMl-Blueprint
-- [ ] Blueprint for Federated Learning
 - [ ] Blueprint for Hyperparameter-Optimization
 - [ ] CLI-Tool for Blueprint-Generation
 
 ## Links
 
 - [Blueprints & Documentation of this Repo](https://blueprint-dev-v2.readthedocs.io/en/latest/index.html)
+- [Demo Application](https://github.com/Alexander-Nasuta/openhub-demo) 
 - [KIOptiPack Website (English)](https://ki-hub-kunststoffverpackungen.de/en/kioptipack/about)
 - [KIOptiPack Website (German)](https://ki-hub-kunststoffverpackungen.de/kioptipack/ueber-das-projekt)
 - [Gaia-X](https://gaia-x.eu/)

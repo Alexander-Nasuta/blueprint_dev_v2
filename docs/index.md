@@ -12,6 +12,14 @@
 ```{important}
 FastIoT is developed to run on linux. MacOS seems to work as well. Windows might work by using WSL2.
 ```
+```{Note}
+The lates Development efforts are focused on the FastIoT 2.0. which is not released yet.
+There will be Major changes in the Database Interactions and the Database and Data Processing Blueprints will be refactored.
+```
+
+```{Tip}
+A Demonstration app is available at [OpenHubDays Demo](https://github.com/Alexander-Nasuta/openhub-demo).
+```
 
 
 ```{include} ../README.md
